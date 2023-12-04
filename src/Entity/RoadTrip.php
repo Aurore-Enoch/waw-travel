@@ -34,5 +34,7 @@ class RoadTrip {
         $this->user = $user;
     }
     
-
+    // to get the name of the carType we must use a method 
+    //by the ID of the carType (in fact we do the relation ourself)
+        
 }

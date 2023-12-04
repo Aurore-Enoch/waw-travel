@@ -8,7 +8,6 @@ class CarType {
 	private ?int $id;
 	private ?string $name;
     
-
 	public function getId(): ?int {
 		return $this->id;
 	}
@@ -20,4 +19,7 @@ class CarType {
 		$this->name = $name;
 	}
 
+	
+
+		
 }

@@ -11,5 +11,7 @@ class RoadTripManager extends AbstractManager {
         return $this->readMany(RoadTrip::class);
     }
 
+
+
 }
 

@@ -6,11 +6,6 @@ const ROUTES = [
 		'method' => 'home',
 		'name' => 'app_index'
 	],
-	'/{id}' => [
-		'controller' => App\Controller\RoadTripController::class,
-		'method' => 'show',
-		'name' => 'roadtrip_show'
-	],
 	'/roadtrips' => [
 		'controller' => App\Controller\RoadTripController::class,
 		'method' => 'list',
@@ -42,5 +37,9 @@ const ROUTES = [
 		'method' => 'logout',
 		'name' => 'app_logout'
 	],
-
+	'/{id}' => [
+		'controller' => App\Controller\RoadTripController::class,
+		'method' => 'show',
+		'name' => 'roadtrip_show'
+	],
 ];

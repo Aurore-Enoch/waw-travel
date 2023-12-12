@@ -11,4 +11,5 @@
         </div>
         <button type="submit">S'inscrire</button>
     </form>
+    <span> <?= $data['message'] ?></span>
 </div>

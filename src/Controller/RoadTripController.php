@@ -17,13 +17,12 @@ class RoadTripController extends AbstractController {
 
         $roadTripManager = new RoadTripManager();
         $roadTrips = $roadTripManager->findAll();
-        var_dump($roadTrips);
+        // var_dump($roadTrips);
     }
 
     public function show(int $id) {
         $roadTripManager = new RoadTripManager();
         $roadTrip = $roadTripManager->find($id);
-        var_dump($roadTrip);
     }
 
     public function add() {
@@ -37,7 +36,6 @@ class RoadTripController extends AbstractController {
             $roadTrip->setTitle($_POST['title']);
             //set of the others properties of the relations entities
             $roadTripManager->add($roadTrip);
-            var_dump($roadTrip);
             return $this->redirectToRoute('home');
         }
         return $this->renderView('roadTrip/add.php', ['seo' => [
@@ -55,8 +53,8 @@ class RoadTripController extends AbstractController {
         if(!empty($_POST)) {
             $roadTrip->setTitle($_POST['title']);
             //set of the others properties of the relations entities
-            $roadTripManager->update($roadTrip);
-            var_dump($roadTrip);
+            $roadTripManager->edit($roadTrip);
+            // var_dump($roadTrip);
             return $this->redirectToRoute('home');
         }
         return $this->renderView('roadTrip/edit.php', ['seo' => [

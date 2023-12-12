@@ -27,7 +27,6 @@ abstract class AbstractManager {
     private function classToTable(string $class): string {
 		$tmp = explode('\\', $class);
 		//return en ajoutant le understore entre chaque mot avec majuscule
-		var_dump(strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', end($tmp))));
 		return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', end($tmp)));
 	}
 

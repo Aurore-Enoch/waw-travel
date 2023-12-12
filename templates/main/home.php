@@ -1,5 +1,3 @@
-<?php var_dump($_SESSION); ?>
-
 <?php if (isset($_SESSION['user'])): ?>
     <p>Vous êtes déjà connecté</p>
 <?php endif; ?>

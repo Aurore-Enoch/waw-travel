@@ -6,27 +6,37 @@ use WawTravel\Controller\AbstractController;
 use App\Manager\RoadTripManager;
 use App\Entity\RoadTrip;
 use WawTravel\Services\Auth\Authentificator;
+use WawTravel\Services\Flash\Flash;
 
 class RoadTripController extends AbstractController {
+
+    //Add htmlspecialchars 
 
     public function list() {
         $authentificator = new Authentificator();
         if(!$authentificator->isConnected()) {
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
-
         $roadTripManager = new RoadTripManager();
-        $roadTrips = $roadTripManager->findAll();
-        // var_dump($roadTrips);
+        // var_dump($roadTripManager->findAll());
+        return $this->renderView('roadtrip/list.php', ['seo' => [
+            'title' => 'Liste des road trips',],
+            'roadtrips' => $roadTripManager->findAll()
+        ]);
     }
 
     public function show(int $id) {
         $roadTripManager = new RoadTripManager();
         $roadTrip = $roadTripManager->find($id);
+        return $this->renderView('roadtrip/show.php', ['seo' => [
+            'title' => $roadTrip->getTitle(),],
+            'roadtrip' => $roadTrip
+        ]);
     }
 
     public function add() {
         $authentificator = new Authentificator();
+        $flash = new Flash();
         if(!$authentificator->isConnected()) {
             return $this->redirectToRoute('login');
         }
@@ -36,15 +46,19 @@ class RoadTripController extends AbstractController {
             $roadTrip->setTitle($_POST['title']);
             //set of the others properties of the relations entities
             $roadTripManager->add($roadTrip);
-            return $this->redirectToRoute('home');
+            // message flash (success, votre road trip a bien été ajouté)
+            $flash->setMessageFlash('success', 'Votre roadtrip a bien été ajouté');
+            return $this->redirectToRoute('roadtrip_list');
         }
-        return $this->renderView('roadTrip/add.php', ['seo' => [
+        return $this->renderView('roadTrip/add.php', 
+        ['seo' => [
             'title' => 'Ajouter un road trip',
-        ]]);
+        ], 'message' => $flash->getMessageFlash()]);
     }
 
     public function edit(int $id) {
         $authentificator = new Authentificator();
+        $flash = new Flash();
         if(!$authentificator->isConnected()) {
             return $this->redirectToRoute('login');
         }
@@ -55,10 +69,13 @@ class RoadTripController extends AbstractController {
             //set of the others properties of the relations entities
             $roadTripManager->edit($roadTrip);
             // var_dump($roadTrip);
-            return $this->redirectToRoute('home');
+             // message flash (success, votre road trip a bien été ajouté)
+             $flash->setMessageFlash('success', 'Votre roadtrip a bien été modifié');
+            return $this->redirectToRoute('roadtrip_list');
         }
         return $this->renderView('roadTrip/edit.php', ['seo' => [
-            'title' => 'Modifier un road trip',
-        ]]);
+            'title' => 'Modifier un road trip',],
+            'message' => $flash->getMessageFlash()
+        ]);  
     }
 }

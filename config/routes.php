@@ -11,7 +11,7 @@ const ROUTES = [
 		'method' => 'list',
 		'name' => 'roadtrip_list'
 	],
-	'/roadtrips/{id}' => [
+	'/roadtrips/{id}/editer' => [
 		'controller' => App\Controller\RoadTripController::class,
 		'method' => 'edit',
 		'name' => 'roadtrip_edit'

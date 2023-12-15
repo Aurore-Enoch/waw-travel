@@ -15,16 +15,17 @@ class AuthController extends AbstractController {
         if(!empty($_POST)) {
             $user = new User();
             $userManager = new UserManager();
-    
             try {
-                $user->setEmail($_POST['email']);
-                $user->setPassword(password_hash($_POST['password'], PASSWORD_BCRYPT));
+                $email = htmlspecialchars($_POST['email']);
+                $password = password_hash(htmlspecialchars($_POST['password']), PASSWORD_BCRYPT);
+                $user->setEmail($email);
+                $user->setPassword($password);
                 $userManager->add($user);
     
                 $authentificator = new Authentificator();
                 $authentificator->connect([
-                    'email' => $_POST['email'],
-                    'password' => password_hash($_POST['password'], PASSWORD_BCRYPT),
+                    'email' => $email,
+                    'password' => $password,
                 ]);
     
                 return $this->redirectToRoute('roadtrip_list');
@@ -50,9 +51,12 @@ class AuthController extends AbstractController {
     public function login() {
         if(!empty($_POST)) {
             $userManager = new UserManager();
-            $user = $userManager->findByEmail($_POST['email']);
+            $email = htmlspecialchars($_POST['email']);
+            $password =htmlspecialchars($_POST['password']);
+
+            $user = $userManager->findByEmail($email);
             $authentificator = new Authentificator();
-            if(password_verify(($_POST['password']), $user->getPassword())) {
+            if(password_verify(($password), $user->getPassword())) {
                 $authentificator->connect([
                     'email' => $user->getEmail(),
                     'password' => $user->getPassword(),

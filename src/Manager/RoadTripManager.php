@@ -20,7 +20,6 @@ class RoadTripManager extends AbstractManager {
             RoadTrip::class,
             [
                 'title' => $roadTrip->getTitle(),
-                // get the others properties of the relations entities
             ]
         );
     }
@@ -36,6 +35,11 @@ class RoadTripManager extends AbstractManager {
         );
     }
 
+    public function getCarTypeName(RoadTrip $roadTrip) {
+        $carTypeManager = new CarTypeManager();
+        $carType = $carTypeManager->find($roadTrip->carTypeId());
+        return $carType->getName();
+    }
 
 }
 

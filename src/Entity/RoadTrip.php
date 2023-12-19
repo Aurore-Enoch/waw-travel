@@ -1,6 +1,10 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\CarType;
+use App\Entity\User;
+use App\Manager\CarTypeManager;
+
 #[\AllowDynamicProperties]
 class RoadTrip {
 
@@ -33,8 +37,9 @@ class RoadTrip {
     public function setUser(?User $user): void {
         $this->user = $user;
     }
-    
-    // to get the name of the carType we must use a method 
-    //by the ID of the carType (in fact we do the relation ourself)
-        
+
+    public function carTypeId(): ?int {
+        return $this->car_type_id;
+    }
+
 }

@@ -18,7 +18,7 @@ class RoadTripController extends AbstractController {
             return $this->redirectToRoute('app_login');
         }
         $roadTripManager = new RoadTripManager();
-        // var_dump($roadTripManager->findAll());
+        var_dump($roadTripManager->findAll()); 
         return $this->renderView('roadtrip/list.php', ['seo' => [
             'title' => 'Liste des road trips',],
             'roadtrips' => $roadTripManager->findAll()
@@ -28,9 +28,11 @@ class RoadTripController extends AbstractController {
     public function show(int $id) {
         $roadTripManager = new RoadTripManager();
         $roadTrip = $roadTripManager->find($id);
+        $carTypeName = $roadTripManager->getCarTypeName($roadTrip);
         return $this->renderView('roadtrip/show.php', ['seo' => [
             'title' => $roadTrip->getTitle(),],
-            'roadtrip' => $roadTrip
+            'roadtrip' => $roadTrip,
+            'carTypeName' => $carTypeName
         ]);
     }
 

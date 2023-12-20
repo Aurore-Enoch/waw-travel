@@ -71,6 +71,44 @@ ul {
     gap: 1rem;
 }
 
+/* FLASH Messages */
+div#flash-container {
+    position: absolute;
+    z-index: 10000;
+    right: 25px;
+    top: 95px;
+}
+
+
+.flash-item {
+    text-align: justify;
+    overflow: hidden;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    padding: 10px;
+    color: white;
+    margin: 15px 0;
+    position: relative;
+    height: 95px;
+    width: 350px;
+    border-radius: 5px;
+    border: solid 4px black;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    font-size: 19px;
+    -webkit-box-orient: vertical;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.flash-item.success {
+    background: #82dc82;
+}
+
+.flash-item.error {
+    background: #e76262;
+}
+
 /*LAYOUT*/
 .auth-container {
     background-color: #FFC0CB;

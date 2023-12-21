@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Controller;
 
@@ -6,104 +6,78 @@ use WawTravel\Controller\AbstractController;
 use App\Entity\User;
 use App\Manager\UserManager;
 use WawTravel\Services\Auth\Authentificator;
-use WawTravel\Services\FlashManager\FlashManager;
+use WawTravel\Services\Flash\Flash;
 
-class AuthController extends AbstractController
-{
+class AuthController extends AbstractController {
 
-    public function register()
-    {
-        $flash = new FlashManager();
-        if (!empty($_POST)) {
+    public function register() {
+        $flash = new Flash();
+        if(!empty($_POST)) {
             $user = new User();
             $userManager = new UserManager();
             try {
                 $email = htmlspecialchars($_POST['email']);
-                $password = htmlspecialchars($_POST['password']);
-
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $flash->addFlashMessage('error', 'Email invalide');
-                }
-                if (strlen($_POST['password']) < 8) {
-                    $flash->addFlashMessage('error', 'Mot de passe trop court ou vide, veuillez saisir au moins 8 caractères');
-                }
-
-                if (!empty($flash->getFlashMessages())) {
-                    return $this->renderView('auth/register.php', ['seo' => [
-                        'title' => 'Inscription',],
-                    ]);
-                }
-
+                $password = password_hash(htmlspecialchars($_POST['password']), PASSWORD_BCRYPT);
                 $user->setEmail($email);
-                $user->setPassword(password_hash($password, PASSWORD_BCRYPT));
+                $user->setPassword($password);
                 $userManager->add($user);
-
+    
                 $authentificator = new Authentificator();
                 $authentificator->connect([
                     'email' => $email,
                     'password' => $password,
                 ]);
-
-                $flash->addFlashMessage('success', 'Inscription réussie');
-
+    
                 return $this->redirectToRoute('roadtrip_list');
             } catch (\PDOException $e) {
                 // Erreur liée à la contrainte d'unicité sur l'email
                 if ($e->getCode() == 23000) {
                     // Email déjà utilisé, afficher le message flash
-                    $flash->addFlashMessage('error', 'Cet email est déjà utilisé');
+                    $flash->setMessageFlash('error', 'Cet email est déjà utilisé');
                 } else {
                     // Gérer d'autres erreurs de base de données si nécessaire
-                    // $flash->addFlashMessage('error', 'Une erreur s\'est produite lors de l\'inscription');
-                    $flash->addFlashMessage('error', $e->getMessage());
+                    $flash->setMessageFlash('error', 'Une erreur s\'est produite lors de l\'inscription');
                 }
-
             }
         }
-
-        return $this->renderView('auth/register.php', ['seo' => ['title' => 'Inscription',],
+    
+        return $this->renderView('auth/register.php', ['seo' => [
+            'title' => 'Inscription',],
+            'message' => $flash->getMessageFlash()
         ]);
     }
+    
 
-
-    public function login()
-    {
-        $flash = new FlashManager();
-        if (!empty($_POST)) {
+    public function login() {
+        if(!empty($_POST)) {
             $userManager = new UserManager();
             $email = htmlspecialchars($_POST['email']);
-            $password = htmlspecialchars($_POST['password']);
-
-            if (empty($email) || empty($password)) {
-                $flash->addFlashMessage('error', 'Veuillez remplir tous les champs');
-                return $this->renderView('auth/login.php', ['seo' => ['title' => 'Connexion']]);
-            }
+            $password =htmlspecialchars($_POST['password']);
 
             $user = $userManager->findByEmail($email);
             $authentificator = new Authentificator();
-            if (!empty($user) && password_verify(($password), $user->getPassword())) {
+            if(password_verify(($password), $user->getPassword())) {
                 $authentificator->connect([
                     'email' => $user->getEmail(),
                     'password' => $user->getPassword(),
                 ]);
                 return $this->redirectToRoute('roadtrip_list');
             }
+            return $this->redirectToRoute('login');
             //meesage d'erreur flash
-
-            $flash->addFlashMessage('error', 'Email ou mot de passe incorrect');
-            return $this->renderView('auth/login.php', ['seo' => ['title' => 'Connexion']]);
+            $flash = new Flash();
+            $flash->setMessageFlash('error', 'Email ou mot de passe incorrect');
         }
-        return $this->renderView('auth/login.php', ['seo' => ['title' => 'Connexion']]);
-
-
+        return $this->renderView('auth/login.php', ['seo' => [
+            'title' => 'Connexion',
+            ]]);
+        
     }
 
-    public function logout()
-    {
+    public function logout() {
         $authentificator = new Authentificator();
         $authentificator->disconnect();
-        $authentificator->destroy();
         return $this->redirectToRoute('home');
     }
-
+        
 }

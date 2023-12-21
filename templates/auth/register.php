@@ -1,4 +1,4 @@
-<div class="auth-container">
+<div class="container">
     <h1><?= htmlspecialchars($data['seo']['title']) ?></h1>
     <form method="POST" action="?path=/inscription">
         <div class="mb-3">
@@ -11,6 +11,6 @@
         </div>
         <button type="submit">S'inscrire</button>
     </form>
-    <span class="error-msg"> <?= htmlspecialchars($data['message']) ?></span>
+    <span> <?= htmlspecialchars($data['message']) ?></span>
 </di>
 

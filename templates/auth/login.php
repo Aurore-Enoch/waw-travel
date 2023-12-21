@@ -1,4 +1,4 @@
-<div class="auth-container">
+<div class="container">
     <h1><?= htmlspecialchars($data['seo']['title']) ?></h1>
     <form method="POST" action="">
         <div class="mb-3">

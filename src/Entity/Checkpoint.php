@@ -2,7 +2,7 @@
 namespace App\Entity;
 
 use DateTime;
-
+#[\AllowDynamicProperties]
 class Checkpoint {
 
 	private ?int $id;
@@ -10,7 +10,7 @@ class Checkpoint {
 	private ?string $coordinates;
 	private ?DateTime $arrivalDate;
 	private ?DateTime $departureDate;
-	private ?RoadTrip $roadTrip;
+	private $road_trip_id;
     
 
 	public function getId(): ?int {
@@ -45,11 +45,12 @@ class Checkpoint {
 		$this->departureDate = $departureDate;
 	}
 
-	public function getRoadTrip(): ?RoadTrip {
-		return $this->roadTrip;
+	public function getRoadTripId(): ?int {
+		return $this->road_trip_id;
 	}
-	public function setRoadTrip(?RoadTrip $roadTrip): void {
-		$this->roadTrip = $roadTrip;
+
+	public function setRoadTripId(?int $road_trip_id): void {
+		$this->road_trip_id = $road_trip_id;
 	}
 
 }

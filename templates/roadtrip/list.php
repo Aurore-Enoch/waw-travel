@@ -5,3 +5,5 @@
         <a href="?path=/<?= $roadtrip->getId()?>">Voir le roadtrip</a>
     </div>
 <?php endforeach; ?>
+
+<a href="?path=/roadtrips/ajouter">Ajouter un roadtrip</a>

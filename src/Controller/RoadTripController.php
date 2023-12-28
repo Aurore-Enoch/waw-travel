@@ -5,6 +5,7 @@ namespace App\Controller;
 use WawTravel\Controller\AbstractController;
 use App\Manager\RoadTripManager;
 use App\Entity\RoadTrip;
+use App\Manager\CarTypeManager;
 use WawTravel\Services\Auth\Authentificator;
 use WawTravel\Services\Flash\Flash;
 
@@ -29,24 +30,30 @@ class RoadTripController extends AbstractController {
         $roadTripManager = new RoadTripManager();
         $roadTrip = $roadTripManager->find($id);
         $carTypeName = $roadTripManager->getCarTypeName($roadTrip);
+        $checkpoints = $roadTripManager->getCheckpoints($roadTrip);
         return $this->renderView('roadtrip/show.php', ['seo' => [
             'title' => $roadTrip->getTitle(),],
             'roadtrip' => $roadTrip,
-            'carTypeName' => $carTypeName
+            'carTypeName' => $carTypeName,
+            'checkpoints' => $checkpoints
         ]);
     }
 
     public function add() {
         $authentificator = new Authentificator();
         $flash = new Flash();
+        $carTypeManager = new CarTypeManager();
+        $carTypes = $carTypeManager->findAll();
+
         if(!$authentificator->isConnected()) {
             return $this->redirectToRoute('login');
         }
-        if(!empty($_POST)) {
+        if(!empty($_POST)) {            
             $roadTrip = new RoadTrip();
             $roadTripManager = new RoadTripManager();
-            $roadTrip->setTitle($_POST['title']);
-            //set of the others properties of the relations entities
+            $roadTrip->setTitle($_POST['titleRoadTrip']);
+            $roadTrip->setCarTypeId($_POST['carTypeId']); //verifier que ça associe bien l'id du carType
+            //setteurs pour user et ckeckpoints 
             $roadTripManager->add($roadTrip);
             // message flash (success, votre road trip a bien été ajouté)
             $flash->setMessageFlash('success', 'Votre roadtrip a bien été ajouté');
@@ -55,7 +62,10 @@ class RoadTripController extends AbstractController {
         return $this->renderView('roadTrip/add.php', 
         ['seo' => [
             'title' => 'Ajouter un road trip',
-        ], 'message' => $flash->getMessageFlash()]);
+        ], 'message' => $flash->getMessageFlash(),
+            'carTypes' => $carTypes
+        ]);
+    
     }
 
     public function edit(int $id) {

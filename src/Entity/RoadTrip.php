@@ -41,5 +41,9 @@ class RoadTrip {
     public function carTypeId(): ?int {
         return $this->car_type_id;
     }
+    
+    public function setCarTypeId(?int $carTypeId): void {
+        $this->car_type_id = $carTypeId;
+    }
 
 }

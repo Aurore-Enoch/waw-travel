@@ -22,6 +22,9 @@ class RoadTripManager extends AbstractManager {
                 'title' => $roadTrip->getTitle(),
             ]
         );
+        $roadTripId = $roadTrip->getId();
+        $checkpointManager = new CheckpointManager();
+        
     }
 
     public function edit(RoadTrip $roadTrip) {
@@ -39,6 +42,12 @@ class RoadTripManager extends AbstractManager {
         $carTypeManager = new CarTypeManager();
         $carType = $carTypeManager->find($roadTrip->carTypeId());
         return $carType->getName();
+    }
+
+    public function getCheckpoints(RoadTrip $roadTrip) {
+        $checkpointManager = new CheckpointManager();
+        $checkpoints = $checkpointManager->findAllByRoadTripId(['road_trip_id' => $roadTrip->getId()]);
+        return $checkpoints;
     }
 
 }

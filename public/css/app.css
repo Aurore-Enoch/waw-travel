@@ -1,4 +1,6 @@
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,700;1,900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 *, *::before, *::after {
@@ -9,35 +11,6 @@
 body {
     font-family: 'Montserrat', sans-serif;
 }
-ul {
-    list-style: none;
-}
+
 /*Navbar*/
-#main-header {
-    background-color: palevioletred;
-    color: white;
-    color: white;
-}
-#main-header > .container {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-    align-items: center;
-}
-#main-header a {
-    color: white;
-    text-decoration: none;
-}
-#logo {
-    height: 50px;
-}
-.navbar ul {
-    display: flex;
-    gap: 1rem;
-}
-/*LAYOUT*/
-.container{
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 1rem;
-}
+

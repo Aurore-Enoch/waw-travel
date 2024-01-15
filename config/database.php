@@ -5,5 +5,6 @@ const DB_INFOS = [
 	'port'     => '3306',
 	'dbname'   => 'waw_travel',
 	'username' => 'root',
-	'password' => ''
+	'password' => '',
+	'strict'   => false,
 ];

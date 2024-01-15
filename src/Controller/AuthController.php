@@ -24,6 +24,7 @@ class AuthController extends AbstractController {
     
                 $authentificator = new Authentificator();
                 $authentificator->connect([
+                    'id' => $user->getId(),
                     'email' => $email,
                     'password' => $password,
                 ]);
@@ -58,6 +59,7 @@ class AuthController extends AbstractController {
             $authentificator = new Authentificator();
             if(password_verify(($password), $user->getPassword())) {
                 $authentificator->connect([
+                    'id' => $user->getId(),
                     'email' => $user->getEmail(),
                     'password' => $user->getPassword(),
                 ]);

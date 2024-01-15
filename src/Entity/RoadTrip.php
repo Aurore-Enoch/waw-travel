@@ -10,8 +10,8 @@ class RoadTrip {
 
 	private ?int $id;
 	private ?string $title;
-    private ?CarType $carType;
-    private ?User $user;
+    // private ?CarType $carType;
+    // private ?User $user;
     
 	public function getId(): ?int {
 		return $this->id;
@@ -27,19 +27,19 @@ class RoadTrip {
 		$this->title = $title;
 	}
 
-    public function getCarType(): ?CarType {
-        return $this->carType;
-    }
-    public function setCarType(?CarType $carType): void {
-        $this->carType = $carType;
-    }
+    // public function getCarType(): ?CarType {
+    //     return $this->carType;
+    // }
+    // public function setCarType(?CarType $carType): void {
+    //     $this->carType = $carType;
+    // }
 
-    public function getUser(): ?User {
-        return $this->user;
-    }  
-    public function setUser(?User $user): void {
-        $this->user = $user;
-    }
+    // public function getUser(): ?User {
+    //     return $this->user;
+    // }  
+    // public function setUser(?User $user): void {
+    //     $this->user = $user;
+    // }
     public function getUserId(): ?int {
         return $this->user_id;
     }

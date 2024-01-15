@@ -102,14 +102,14 @@ class RoadTripController extends AbstractController
             $roadTrip->setCarTypeId($_POST['carTypeId']);
 
             $roadTripManager->edit($roadTrip);
-
             $checkpoint = new Checkpoint();
             $checkpoint->setTitle($_POST['titleCheckpoint']);
             $checkpoint->setCoordinates($_POST['coordinates']);
-            $checkpoint->setArrivalDate($_POST['arrivalDate']);
-            $checkpoint->setDepartureDate($_POST['departureDate']);
+            $checkpoint->setArrivalDate(new \DateTime($_POST['arrivalDate']));
+            $checkpoint->setDepartureDate(new \DateTime($_POST['departureDate']));
 
             $checkpoint->setRoadtripId($roadTrip->getId());
+            var_dump($checkpoint);
     
             // Save the checkpoint to the database
             $checkpointManager = new CheckpointManager();

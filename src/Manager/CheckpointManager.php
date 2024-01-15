@@ -22,8 +22,9 @@ class CheckpointManager extends AbstractManager {
             [
                 'title' => $checkpoint->getTitle(),
                 'coordinates' => $checkpoint->getCoordinates(),
-                'arrivalDate' => $checkpoint->getArrivalDate(),
-                'departureDate' => $checkpoint->getDepartureDate(),
+                'arrival_date' => $checkpoint->getArrivalDate()->format('Y-m-d'),
+                'departure_date' => $checkpoint->getDepartureDate()->format('Y-m-d'),
+                'road_trip_id' => $checkpoint->getRoadTripId(),
             ]
         );
     }
@@ -34,8 +35,9 @@ class CheckpointManager extends AbstractManager {
             [
                 'title' => $checkpoint->getTitle(),
                 'coordinates' => $checkpoint->getCoordinates(),
-                'arrivalDate' => $checkpoint->getArrivalDate(),
-                'departureDate' => $checkpoint->getDepartureDate(),
+                'arrival_date' => $checkpoint->getArrivalDate()->format('Y-m-d'),
+                'departure_date' => $checkpoint->getDepartureDate()->format('Y-m-d'),
+                'road_trip_id' => $checkpoint->getRoadTripId(),
             ],
              $checkpoint->getId(),
         );

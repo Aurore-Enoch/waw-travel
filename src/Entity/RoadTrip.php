@@ -16,6 +16,9 @@ class RoadTrip {
 	public function getId(): ?int {
 		return $this->id;
 	}
+    public function setId(?int $id): void {
+        $this->id = $id;
+    }
 
 	public function getTitle(): ?string {
 		return $this->title;
@@ -36,6 +39,12 @@ class RoadTrip {
     }  
     public function setUser(?User $user): void {
         $this->user = $user;
+    }
+    public function getUserId(): ?int {
+        return $this->user_id;
+    }
+    public function setUserId(?int $userId): void {
+        $this->user_id = $userId;
     }
 
     public function carTypeId(): ?int {

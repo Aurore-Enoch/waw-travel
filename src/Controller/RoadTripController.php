@@ -51,9 +51,14 @@ class RoadTripController extends AbstractController {
         if(!empty($_POST)) {            
             $roadTrip = new RoadTrip();
             $roadTripManager = new RoadTripManager();
+            // set id of roadtrip with +1 of the last id
+            $roadTrip->setId($roadTripManager->getLastId() + 1);
             $roadTrip->setTitle($_POST['titleRoadTrip']);
             $roadTrip->setCarTypeId($_POST['carTypeId']); //verifier que ça associe bien l'id du carType
+            var_dump($roadTrip);
             //setteurs pour user et ckeckpoints 
+            var_dump($_SESSION['user']);
+            $roadTrip->setUserId($_SESSION['user']);
             $roadTripManager->add($roadTrip);
             // message flash (success, votre road trip a bien été ajouté)
             $flash->setMessageFlash('success', 'Votre roadtrip a bien été ajouté');

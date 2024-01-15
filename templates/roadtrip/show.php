@@ -8,3 +8,4 @@
             <li><?= $checkpoint->getTitle() ?></li>
         <?php endforeach ?>
     </div>
+</div>

@@ -5,7 +5,7 @@
     </div>
     <div>
         <label for="carType">Type de voiture</label>
-        <select name="carType" id="carType">
+        <select name="carTypeId" id="carType">
             <?php foreach ($data['carTypes'] as $carType) : ?>
                 <option value="<?= $carType->getId() ?>"><?= $carType->getName() ?></option>
             <?php endforeach ?>

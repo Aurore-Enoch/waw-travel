@@ -21,6 +21,11 @@ const ROUTES = [
 		'method' => 'add',
 		'name' => 'roadtrip_add'
 	],
+	'/roadtrips/{id}/supprimer' => [
+		'controller' => App\Controller\RoadTripController::class,
+		'method' => 'delete',
+		'name' => 'roadtrip_delete'
+	],
 	'/connexion' => [
 		'controller' => App\Controller\AuthController::class,
 		'method' => 'login',

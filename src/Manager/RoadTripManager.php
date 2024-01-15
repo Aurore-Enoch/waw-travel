@@ -41,6 +41,9 @@ class RoadTripManager extends AbstractManager {
              $roadTrip->getId(),
         );
     }
+    public function delete(RoadTrip $roadTrip) {
+        $this->remove(RoadTrip::class, $roadTrip->getId());
+    }
 
     public function getCarTypeName(RoadTrip $roadTrip) {
         $carTypeManager = new CarTypeManager();

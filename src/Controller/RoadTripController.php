@@ -95,6 +95,7 @@ class RoadTripController extends AbstractController
         }
         $roadTripManager = new RoadTripManager();
         $roadTrip = $roadTripManager->find($id);
+        $checkpoints = $roadTripManager->getCheckpoints($roadTrip);
         var_dump($roadTrip);
 
         if (!empty($_POST)) {
@@ -128,8 +129,22 @@ class RoadTripController extends AbstractController
                 ],
                 'message' => $flash->getMessageFlash(),
                 'roadtrip' => $roadTrip,
-                'carTypes' => $carTypes
+                'carTypes' => $carTypes,
+                'checkpoints' => $checkpoints,
             ],
         );
+    }
+    public function delete(int $id)
+    {
+        $authentificator = new Authentificator();
+        $flash = new Flash();
+        if (!$authentificator->isConnected()) {
+            return $this->redirectToRoute('login');
+        }
+        $roadTripManager = new RoadTripManager();
+        $roadTrip = $roadTripManager->find($id);
+        $roadTripManager->delete($roadTrip);
+        $flash->setMessageFlash('success', 'Votre roadtrip a bien été supprimé');
+        return $this->redirectToRoute('roadtrips');
     }
 }

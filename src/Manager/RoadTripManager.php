@@ -34,6 +34,8 @@ class RoadTripManager extends AbstractManager {
             RoadTrip::class,
             [
                 'title' => $roadTrip->getTitle(),
+                'car_type_id' => $roadTrip->carTypeId(),
+                'user_id' => $roadTrip->getUserId(),
                 // get the others properties of the relations entities
             ],
              $roadTrip->getId(),

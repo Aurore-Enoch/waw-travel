@@ -42,15 +42,14 @@ class CheckpointManager extends AbstractManager {
              $checkpoint->getId(),
         );
     }
-
-    public function findAllByRoadTripId(array $filters = []) {
-        return $this->readMany(Checkpoint::class, $filters);
-    }
-
+    
     public function delete(Checkpoint $checkpoint) {
         $this->remove(Checkpoint::class, $checkpoint->getId());
     }
-   
+
+    public function findAllByRoadTripId(array $filters = []) {
+        return $this->readMany(Checkpoint::class, $filters);
+    }   
 }
 
 

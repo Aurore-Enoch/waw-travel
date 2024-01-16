@@ -56,11 +56,5 @@ class RoadTripManager extends AbstractManager {
         $checkpoints = $checkpointManager->findAllByRoadTripId(['road_trip_id' => $roadTrip->getId()]);
         return $checkpoints;
     }
-    public function getLastId() {
-        $lastId = $this->readMany(RoadTrip::class, [], ['id' => 'DESC'], 1);
-        var_dump($lastId);
-        return $lastId[0]->getId();
-    }
-
 }
 

@@ -43,6 +43,7 @@
             <p><?= $checkpoint->getArrivalDate() ?></p>
             <p><?= $checkpoint->getDepartureDate() ?></p>
             <button><a href="?path=/roadtrips/<?= $data['roadtrip']->getId()?>/editer&checkpoint_id=<?= $checkpoint->getId() ?>">Modifier</a></button>      
-            <button><a href="?path=/roadtrips/<?= $data['roadtrip']->getId()?>/delete_checkpoint_id=<?= $checkpoint->getId() ?>">Supprimer</a></button>            <?php endforeach ?>
+            <button><a href="?path=/roadtrips/<?= $data['roadtrip']->getId()?>/delete_checkpoint/<?= $checkpoint->getId() ?>">Supprimer</a></button>
+            <?php endforeach ?>
     <?php endif ?>
 </section>

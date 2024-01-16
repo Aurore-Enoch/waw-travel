@@ -162,15 +162,14 @@ class RoadTripController extends AbstractController
         return $this->redirectToRoute('roadtrips');
     }
 
-    public function deleteCheckpoint(int $checkpoint_id)
+    public function deleteCheckpoint(int $id)
 {
     $authentificator = new Authentificator();
     if (!$authentificator->isConnected()) {
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('connexion');
     }
-
     $checkpointManager = new CheckpointManager();
-    $checkpoint = $checkpointManager->find($checkpoint_id);
+    $checkpoint = $checkpointManager->find($id);
     $checkpointManager->delete($checkpoint);
 
     return $this->redirectToRoute('roadtrips');

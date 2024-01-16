@@ -16,6 +16,12 @@ const ROUTES = [
 		'method' => 'edit',
 		'name' => 'roadtrip_edit'
 	],
+	'/roadtrips/{id}/delete_checkpoint/{id}' => [
+		'controller' => App\Controller\RoadTripController::class,
+		'method' => 'deleteCheckpoint',
+		'name' => 'delete_checkpoint'
+	],
+
 	'/roadtrips/ajouter' => [
 		'controller' => App\Controller\RoadTripController::class,
 		'method' => 'add',

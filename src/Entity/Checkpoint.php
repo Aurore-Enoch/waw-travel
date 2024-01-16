@@ -8,8 +8,8 @@ class Checkpoint {
 	private ?int $id;
 	private ?string $title;
 	private ?string $coordinates;
-	private ?DateTime $arrival_date;
-	private ?DateTime $departure_date;
+	private ?string $arrival_date;
+	private ?string $departure_date;
 	private $road_trip_id;
     
 
@@ -31,17 +31,17 @@ class Checkpoint {
 		$this->coordinates = $coordinates;
 	}
 	
-	public function getArrivalDate(): ?DateTime {
+	public function getArrivalDate(): ?string {
 		return $this->arrival_date;
 	}
-	public function setArrivalDate(?DateTime $arrival_date): void {
+	public function setArrivalDate(?string $arrival_date): void {
 		$this->arrival_date = $arrival_date;
 	}
 
-	public function getDepartureDate(): ?DateTime {
+	public function getDepartureDate(): ?string {
 		return $this->departure_date;
 	}
-	public function setDepartureDate(?DateTime $departure_date): void {
+	public function setDepartureDate(?string $departure_date): void {
 		$this->departure_date = $departure_date;
 	}
 

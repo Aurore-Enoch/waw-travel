@@ -38,8 +38,8 @@
             <?php var_dump($checkpoint) ?>
             <p><?= $checkpoint->getTitle() ?></p>
             <p><?= $checkpoint->getCoordinates() ?></p>
-            <p><?= $checkpoint->getArrivalDate()->format('Y-m-d') ?></p>
-            <p><?= $checkpoint->getDepartureDate()->format('Y-m-d') ?></p>
+            <p><?= $checkpoint->getArrivalDate() ?></p>
+            <p><?= $checkpoint->getDepartureDate() ?></p>
         <?php endforeach ?>
     <?php endif ?>
 </section>

@@ -1,5 +1,5 @@
-<!-- supprimer le roadtrip -->
 <button><a href="?path=/roadtrips/<?= $data['roadtrip']->getId()?>/supprimer">Supprimer</a></button>
+<button><a href="?path=/roadtrips/<?= $data['roadtrip']->getId()?>/editer">Modifier</a></button>
 <h1><?= $data['seo']['title'] ?></h1>
 <div class="row">
     <div class="col-12">

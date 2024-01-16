@@ -16,11 +16,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#FEF3ED]">
-<<<<<<< Updated upstream
     <script>
-=======
-<script>
->>>>>>> Stashed changes
     document.addEventListener('DOMContentLoaded', (event) => {
       const button = document.querySelector('[data-collapse-toggle="navbar-default"]');
       const navbar = document.getElementById('navbar-default');
@@ -30,11 +26,7 @@
         navbar.classList.toggle('block');
       });
     });
-<<<<<<< Updated upstream
     </script>
-=======
-  </script>
->>>>>>> Stashed changes
     <?php include '_header.php'; ?>
     <main>
         <?php require $templatePath ?>

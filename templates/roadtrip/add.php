@@ -2,7 +2,7 @@
 
 
 <div class="m-10 space-y-4">
-    <div class="relative overflow-hidden rounded-lg bg-cover bg-no-repeat p-12 text-center h-[400px] md:h-[600px]" style="background-image: url('img/poster3.png');">
+    <div class="relative overflow-hidden rounded-lg bg-cover bg-no-repeat p-12 text-center h-[400px] md:h-[600]" style="background-image: url('img/poster3.png');">
         <div class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-fixed" style="background-color: rgba(0, 0, 0, 0.6)">
             <div class="flex h-full items-center justify-center">
                 <div class="text-white">
@@ -15,6 +15,18 @@
         </div>
     </div>
 
+    <div class="m-0 md:m-16 lg:m-28 space-y-8">
+        <div class="flex justify-end">
+            <a href="#">
+                <button type="submit" class="mt-6 rounded border-2 border-black bg-white px-7 pb-[8px] pt-[10px] text-sm font-medium uppercase leading-normal text-black transition duration-150 ease-in-out  hover:bg-yellow-700 hover:text-white " data-te-ripple-init data-te-ripple-color="light">
+                    Enregistrer
+                </button>
+            </a>
+        </div>
+    </div>
+
+
+
 <form action="" method="post">
     <div>
         <label for="titleRoadTrip">Titre du roadtrip</label>
@@ -22,28 +34,12 @@
     </div>
     <div>
         <label for="carType">Type de voiture</label>
-        <select name="carType" id="carType">
+        <select name="carTypeId" id="carType">
             <?php foreach ($data['carTypes'] as $carType) : ?>
                 <option value="<?= $carType->getId() ?>"><?= $carType->getName() ?></option>
             <?php endforeach ?>
         </select>
     </div>
-    <div>
-        <label for="titleCheckpoint">Titre du checkpoint</label>
-        <input type="text" name="titleCheckpoint" id="titleCheckpoint" placeholder="Titre du checkpoint">
-    </div>
-    <div>
-        <label for="coordinates">Coordonnées du checkpoint</label>
-        <input type="text" name="coordinates" id="coordinates" placeholder="Coordonnées du checkpoint">
-    </div>
-    <div>
-        <label for="arrivalDate">Date d'arrivée</label>
-        <input type="date" name="arrivalDate" id="arrivalDate" placeholder="Date d'arrivée">
-    </div>
-    <div>
-        <label for="departureDate">Date de départ</label>
-        <input type="date" name="departureDate" id="departureDate" placeholder="Date de départ">
-    </div>
     <button type="submit">Ajouter</button>
 </form>
-            </div>
+</div>

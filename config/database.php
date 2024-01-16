@@ -1,9 +1,13 @@
 <?php
 
 const DB_INFOS = [
-	'host'     => '127.0.0.1',
+	'host'     => 'localhost',
 	'port'     => '3306',
 	'dbname'   => 'waw_travel',
 	'username' => 'root',
+<<<<<<< Updated upstream
 	'password' => ''
+=======
+	'password' => 'root',
+>>>>>>> Stashed changes
 ];

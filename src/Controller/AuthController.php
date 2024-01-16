@@ -29,7 +29,7 @@ class AuthController extends AbstractController {
                     'password' => $password,
                 ]);
     
-                return $this->redirectToRoute('roadtrip_list');
+                return $this->redirectToRoute('roadtrips');
             } catch (\PDOException $e) {
                 // Erreur liée à la contrainte d'unicité sur l'email
                 if ($e->getCode() == 23000) {
@@ -63,7 +63,7 @@ class AuthController extends AbstractController {
                     'email' => $user->getEmail(),
                     'password' => $user->getPassword(),
                 ]);
-                return $this->redirectToRoute('roadtrip_list');
+                return $this->redirectToRoute('roadtrips');
             }
             return $this->redirectToRoute('login');
             //meesage d'erreur flash
@@ -79,7 +79,7 @@ class AuthController extends AbstractController {
     public function logout() {
         $authentificator = new Authentificator();
         $authentificator->disconnect();
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('');
     }
         
 }

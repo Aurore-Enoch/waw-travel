@@ -17,13 +17,12 @@
         <li>
           <a href="?path=/" class="block py-2 px-3 " aria-current="page">Accueil</a>
         </li>
-        <li><a href="?path=/connexion" class="block py-2 px-3 text-gray-900 rounded p-2">RoadTrips</a></li>
         <?php if (isset($_SESSION['user'])) : ?>
-                <li><a href="?path=/roadtrips" class="block py-2 px-3 rounded md:bg-transparent p-2">Carnet de voyages</a></li>
+                <li><a href="?path=/roadtrips" class="block py-2 px-3 text-gray-900 rounded p-2">RoadTrips</a></li>
                 <li><a href="?path=/deconnexion" class="">Déconnexion</a></li>
             <?php else : ?>
                 <li><a href="?path=/connexion" class="block py-2 px-3 text-gray-900 border border-gray-900 rounded-lg hover:bg-gray-100 p-2">Connexion</a></li>
-            <?php endif ?>
+        <?php endif ?>
       </ul>
     </div>
   </div>

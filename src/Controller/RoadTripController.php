@@ -23,7 +23,6 @@ class RoadTripController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         $roadTripManager = new RoadTripManager();
-        var_dump($roadTripManager->findAll());
         return $this->renderView('roadtrip/list.php', [
             'seo' => [
                 'title' => 'Liste des road trips',
@@ -61,13 +60,11 @@ class RoadTripController extends AbstractController
         if (!empty($_POST)) {
             $roadTrip = new RoadTrip();
             $roadTripManager = new RoadTripManager();
+
             $roadTrip->setTitle($_POST['titleRoadTrip']);
             $roadTrip->setCarTypeId($_POST['carTypeId']);
-            var_dump($roadTrip);
-            //setteurs pour user et ckeckpoints 
-            var_dump($_SESSION['user']);
-
             $roadTrip->setUserId($_SESSION['user']['id']);
+
             $roadTripManager->add($roadTrip);
             // message flash (success, votre road trip a bien été ajouté)
             $flash->setMessageFlash('success', 'Votre roadtrip a bien été ajouté');
@@ -95,32 +92,47 @@ class RoadTripController extends AbstractController
         }
         $roadTripManager = new RoadTripManager();
         $roadTrip = $roadTripManager->find($id);
-        $checkpoints = $roadTripManager->getCheckpoints($roadTrip);
-        var_dump($roadTrip);
 
+        $checkpointManager = new CheckpointManager();
+        $checkpoint = null;
+        
+        if (isset($_GET['checkpoint_id'])) {
+            $checkpoint_id = $_GET['checkpoint_id'];
+            $checkpoint = $checkpointManager->find($checkpoint_id);
+        }
+        
         if (!empty($_POST)) {
-            $roadTrip->setTitle($_POST['titleRoadTrip']);
-            $roadTrip->setCarTypeId($_POST['carTypeId']);
-
-            $roadTripManager->edit($roadTrip);
-            $checkpoint = new Checkpoint();
-            $checkpoint->setTitle($_POST['titleCheckpoint']);
-            $checkpoint->setCoordinates($_POST['coordinates']);
-            $checkpoint->setArrivalDate($_POST['arrival_date']);
-            $checkpoint->setDepartureDate($_POST['departure_date']);
-
-            $checkpoint->setRoadtripId($roadTrip->getId());
-            
-    
-            // Save the checkpoint to the database
-            $checkpointManager = new CheckpointManager();
-            $checkpointManager->add($checkpoint);
-
-            // message flash (success, votre road trip a bien été ajouté)
-
-            $flash->setMessageFlash('success', 'Votre roadtrip a bien été modifié');
+            if(isset($_POST['titleRoadTrip']) && isset($_POST['carTypeId'])) {
+                $roadTrip->setTitle($_POST['titleRoadTrip']);
+                $roadTrip->setCarTypeId($_POST['carTypeId']);
+        
+                $roadTripManager->edit($roadTrip);
+        
+                // message flash (success, votre road trip a bien été modifié)
+                $flash->setMessageFlash('success', 'Votre roadtrip a bien été modifié');
+            }  
+        
+            if (isset($_POST['titleCheckpoint']) && isset($_POST['coordinates']) && isset($_POST['arrival_date']) && isset($_POST['departure_date'])) {
+                if ($checkpoint === null) {
+                    $checkpoint = new Checkpoint();
+                }
+                $checkpoint->setTitle($_POST['titleCheckpoint']);
+                $checkpoint->setCoordinates($_POST['coordinates']);
+                $checkpoint->setArrivalDate($_POST['arrival_date']);
+                $checkpoint->setDepartureDate($_POST['departure_date']);
+        
+                $checkpoint->setRoadtripId($roadTrip->getId());
+        
+                if (isset($_GET['checkpoint_id'])) {
+                    $checkpointManager->edit($checkpoint);
+                } else {
+                    $checkpointManager->add($checkpoint);
+                }
+            }
             // return $this->redirectToRoute('roadtrips');
         }
+        $checkpoints = $roadTripManager->getCheckpoints($roadTrip);
+
         return $this->renderView(
             'roadTrip/edit.php',
             [
@@ -131,9 +143,11 @@ class RoadTripController extends AbstractController
                 'roadtrip' => $roadTrip,
                 'carTypes' => $carTypes,
                 'checkpoints' => $checkpoints,
+                'checkpoint' => $checkpoint
             ],
         );
     }
+
     public function delete(int $id)
     {
         $authentificator = new Authentificator();
@@ -147,4 +161,19 @@ class RoadTripController extends AbstractController
         $flash->setMessageFlash('success', 'Votre roadtrip a bien été supprimé');
         return $this->redirectToRoute('roadtrips');
     }
+
+    public function deleteCheckpoint(int $checkpoint_id)
+{
+    $authentificator = new Authentificator();
+    if (!$authentificator->isConnected()) {
+        return $this->redirectToRoute('login');
+    }
+
+    $checkpointManager = new CheckpointManager();
+    $checkpoint = $checkpointManager->find($checkpoint_id);
+    $checkpointManager->delete($checkpoint);
+
+    return $this->redirectToRoute('roadtrips');
+}
+
 }

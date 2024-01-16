@@ -8,13 +8,12 @@ use App\Manager\RoadTripManager;
 use App\Entity\RoadTrip;
 use App\Manager\CarTypeManager;
 use App\Manager\CheckpointManager;
+use WawTravel\Services\Security\Security;
 use WawTravel\Services\Auth\Authentificator;
 use WawTravel\Services\Flash\Flash;
 
 class RoadTripController extends AbstractController
 {
-
-    //Add htmlspecialchars 
 
     public function list()
     {
@@ -22,28 +21,37 @@ class RoadTripController extends AbstractController
         if (!$authentificator->isConnected()) {
             return $this->redirectToRoute('app_login');
         }
+        $security = new Security();
         $roadTripManager = new RoadTripManager();
         return $this->renderView('roadtrip/list.php', [
             'seo' => [
                 'title' => 'Liste des road trips',
             ],
-            'roadtrips' => $roadTripManager->findAll()
+            'roadtrips' => $roadTripManager->findAll(),
+            'security' => $security
         ]);
     }
 
     public function show(int $id)
     {
+        $security = new Security();
         $roadTripManager = new RoadTripManager();
         $roadTrip = $roadTripManager->find($id);
         $carTypeName = $roadTripManager->getCarTypeName($roadTrip);
         $checkpoints = $roadTripManager->getCheckpoints($roadTrip);
-        return $this->renderView('roadtrip/show.php', [
+
+        $escapedTitle = $security->escape($roadTrip->getTitle(), true);
+        
+         $roadTrip->setTitle($escapedTitle);
+         var_dump($roadTrip->getTitle());
+         return $this->renderView('roadtrip/show.php', [
             'seo' => [
                 'title' => $roadTrip->getTitle(),
             ],
             'roadtrip' => $roadTrip,
             'carTypeName' => $carTypeName,
-            'checkpoints' => $checkpoints
+            'checkpoints' => $checkpoints,
+            'security' => $security
         ]);
     }
 

@@ -35,8 +35,8 @@ class CheckpointManager extends AbstractManager {
             [
                 'title' => $checkpoint->getTitle(),
                 'coordinates' => $checkpoint->getCoordinates(),
-                'arrival_date' => $checkpoint->getArrivalDate()->format('Y-m-d'),
-                'departure_date' => $checkpoint->getDepartureDate()->format('Y-m-d'),
+                'arrival_date' => $checkpoint->getArrivalDate(),
+                'departure_date' => $checkpoint->getDepartureDate(),
                 'road_trip_id' => $checkpoint->getRoadTripId(),
             ],
              $checkpoint->getId(),

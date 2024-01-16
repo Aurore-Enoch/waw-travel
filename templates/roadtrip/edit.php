@@ -22,12 +22,12 @@
         <input type="text" name="coordinates" id="coordinates" placeholder="Coordonnées du checkpoint">
     </div>
     <div>
-        <label for="arrivalDate">Date d'arrivée</label>
-        <input type="date" name="arrivalDate" id="arrivalDate" placeholder="Date d'arrivée">
+        <label for="arrival_date">Date d'arrivée</label>
+        <input type="date" name="arrival_date" id="arrival_date" placeholder="Date d'arrivée">
     </div>
     <div>
-        <label for="departureDate">Date de départ</label>
-        <input type="date" name="departureDate" id="departureDate" placeholder="Date de départ">
+        <label for="departure_date">Date de départ</label>
+        <input type="date" name="departure_date" id="departure_date" placeholder="Date de départ">
     </div>
     <button type="submit">Ajouter</button>
 </form>
@@ -38,8 +38,8 @@
             <?php var_dump($checkpoint) ?>
             <p><?= $checkpoint->getTitle() ?></p>
             <p><?= $checkpoint->getCoordinates() ?></p>
-            <p><?= $checkpoint->getArrivalDate() ?></p>
-            <p><?= $checkpoint->getDepartureDate() ?></p>
+            <p><?= $checkpoint->getArrivalDate()->format('Y-m-d') ?></p>
+            <p><?= $checkpoint->getDepartureDate()->format('Y-m-d') ?></p>
         <?php endforeach ?>
     <?php endif ?>
 </section>

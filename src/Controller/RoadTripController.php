@@ -106,11 +106,11 @@ class RoadTripController extends AbstractController
             $checkpoint = new Checkpoint();
             $checkpoint->setTitle($_POST['titleCheckpoint']);
             $checkpoint->setCoordinates($_POST['coordinates']);
-            $checkpoint->setArrivalDate(new \DateTime($_POST['arrivalDate']));
-            $checkpoint->setDepartureDate(new \DateTime($_POST['departureDate']));
+            $checkpoint->setArrivalDate(new \DateTime($_POST['arrival_date']));
+            $checkpoint->setDepartureDate(new \DateTime($_POST['departure_date']));
 
             $checkpoint->setRoadtripId($roadTrip->getId());
-            var_dump($checkpoint);
+            
     
             // Save the checkpoint to the database
             $checkpointManager = new CheckpointManager();
@@ -119,7 +119,7 @@ class RoadTripController extends AbstractController
             // message flash (success, votre road trip a bien été ajouté)
 
             $flash->setMessageFlash('success', 'Votre roadtrip a bien été modifié');
-            return $this->redirectToRoute('roadtrips');
+            // return $this->redirectToRoute('roadtrips');
         }
         return $this->renderView(
             'roadTrip/edit.php',

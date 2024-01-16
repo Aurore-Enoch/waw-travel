@@ -22,14 +22,7 @@ class AuthController extends AbstractController {
                 $user->setPassword($password);
                 $userManager->add($user);
     
-                $authentificator = new Authentificator();
-                $authentificator->connect([
-                    'id' => $user->getId(),
-                    'email' => $email,
-                    'password' => $password,
-                ]);
-    
-                return $this->redirectToRoute('roadtrips');
+                return $this->redirectToRoute('connexion');
             } catch (\PDOException $e) {
                 // Erreur liée à la contrainte d'unicité sur l'email
                 if ($e->getCode() == 23000) {

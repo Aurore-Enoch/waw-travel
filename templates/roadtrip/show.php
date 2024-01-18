@@ -6,7 +6,7 @@
                 <div class="text-white">
                     <div class="mb-20 text-4xl font-semibold ">Le Roadtrips d'<?= $data['seo']['title'] ?></div>
                     <a href='#' class="rounded border-2 border-neutral-50 px-7 pb-[8px] pt-[10px] text-sm font-medium uppercase leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10" data-te-ripple-init data-te-ripple-color="light">
-                        Voir Tout.
+                        Créer un Roadtrip
                     </a>
                 </div>
             </div>
@@ -18,14 +18,14 @@
 <button><a href="?path=/roadtrips/<?= $data['roadtrip']->getId()?>/editer">Modifier</a></button>
 <div class="row">
     <div class="col-12">
-        <h2><?= $data['security']->escape($data['roadtrip']->getTitle(), true) ?></h2>
+        <h2><?= $data['roadtrip']->getTitle() ?></h2>
         <p>Type de voiture : <?= $data['carTypeName'] ?></p>
         <p> Checkpoints : </p>
         <?php foreach ($data['checkpoints'] as $checkpoint) : ?>
-            <li><?= $data['security']->escape($checkpoint->getTitle(), true) ?></li>
-            <li><?= $data['security']->escape($checkpoint->getCoordinates()) ?></li>
-            <li><?= $data['security']->escape($checkpoint->getArrivalDate()) ?></li>
-            <li><?= $data['security']->escape($checkpoint->getDepartureDate()) ?></li>
+            <li><?= $checkpoint->getTitle() ?></li>
+            <li><?= $checkpoint->getCoordinates() ?></li>
+            <li><?= $checkpoint->getArrivalDate() ?></li>
+            <li><?= $checkpoint->getDepartureDate() ?></li>
             <?php endforeach ?>
     </div>
 </div>

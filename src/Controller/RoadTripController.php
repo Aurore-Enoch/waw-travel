@@ -23,11 +23,14 @@ class RoadTripController extends AbstractController
         }
         $security = new Security();
         $roadTripManager = new RoadTripManager();
+        $escapedRoadTrips = $security->escape($roadTripManager->findAll(), true);
+        var_dump($escapedRoadTrips);
+    
         return $this->renderView('roadtrip/list.php', [
             'seo' => [
                 'title' => 'Liste des road trips',
             ],
-            'roadtrips' => $roadTripManager->findAll(),
+            'roadtrips' => $escapedRoadTrips,
             'security' => $security
         ]);
     }
@@ -43,7 +46,8 @@ class RoadTripController extends AbstractController
         $escapedTitle = $security->escape($roadTrip->getTitle(), true);
         
          $roadTrip->setTitle($escapedTitle);
-         var_dump($roadTrip->getTitle());
+         var_dump('escaped title',$escapedTitle);
+         var_dump($checkpoints);
          return $this->renderView('roadtrip/show.php', [
             'seo' => [
                 'title' => $roadTrip->getTitle(),

@@ -1,19 +1,3 @@
-<!-- <div class="container">
-    <h1><?= htmlspecialchars($data['seo']['title']) ?></h1>
-    <form method="POST" action="">
-        <div class="mb-3">
-            <label for="email">Adresse email</label>
-            <input type="email" id="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
-        </div>
-        <div class="mb-3">
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" value="<?= htmlspecialchars($_POST['password'] ?? '') ?>">
-        </div>
-        <button type="submit">Se connecter</button>
-    </form>
-</div> -->
-
-
 <div class="flex flex-row m-10 space-x-4 items-center">
     <div class="w-1/2">
             <div class="flex flex-col w-auto max-w-lg bg-[#E2D7C1] rounded-xl items-center justify-center px-6 py-8 mx-auto">
@@ -22,6 +6,7 @@
                         <h1 class="text-xl font-bold text-center leading-tight tracking-tight text-gray-900 md:text-2xl ">
                         <?= htmlspecialchars($data['seo']['title']) ?>
                         </h1>
+                        <span class="text-<?= ($data['color']) ?> bg-white border-<?= ($data['color']) ?> rounded-md"> <?= ($data['message']) ?></span>
                         <form class="space-y-4 md:space-y-6" action="#" method="POST">
                             <div>
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>

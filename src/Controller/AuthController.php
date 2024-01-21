@@ -21,7 +21,9 @@ class AuthController extends AbstractController {
                 $user->setEmail($email);
                 $user->setPassword($password);
                 $userManager->add($user);
-    
+
+                $flash->setMessageFlash('success', 'Votre compte a bien été créé. Vous pouvez vous connecter');
+
                 return $this->redirectToRoute('connexion');
             } catch (\PDOException $e) {
                 // Erreur liée à la contrainte d'unicité sur l'email
@@ -30,19 +32,23 @@ class AuthController extends AbstractController {
                     $flash->setMessageFlash('error', 'Cet email est déjà utilisé');
                 } else {
                     // Gérer d'autres erreurs de base de données si nécessaire
-                    $flash->setMessageFlash('error', 'Une erreur s\'est produite lors de l\'inscription');
+                    $flash->setMessageFlash('error', 'Une erreur s\'est produite lors de l\'inscription',);
                 }
             }
         }
     
+        $flashMessage = $flash->getMessageFlash();
+
         return $this->renderView('auth/register.php', ['seo' => [
             'title' => 'Inscription',],
-            'message' => $flash->getMessageFlash()
+            'message' => $flashMessage['message'] ?? null,
+            'color' => $flashMessage['color'] ?? 'primary',
         ]);
     }
     
 
     public function login() {
+        $flash = new Flash();
         if(!empty($_POST)) {
             $userManager = new UserManager();
             $email = htmlspecialchars($_POST['email']);
@@ -50,7 +56,7 @@ class AuthController extends AbstractController {
 
             $user = $userManager->findByEmail($email);
             $authentificator = new Authentificator();
-            if(password_verify(($password), $user->getPassword())) {
+            if($user !== null && password_verify($password, $user->getPassword())) {
                 $authentificator->connect([
                     'id' => $user->getId(),
                     'email' => $user->getEmail(),
@@ -58,14 +64,14 @@ class AuthController extends AbstractController {
                 ]);
                 return $this->redirectToRoute('roadtrips');
             }
-            return $this->redirectToRoute('login');
-            //meesage d'erreur flash
-            $flash = new Flash();
             $flash->setMessageFlash('error', 'Email ou mot de passe incorrect');
         }
+        $flashMessage = $flash->getMessageFlash();
         return $this->renderView('auth/login.php', ['seo' => [
-            'title' => 'Connexion',
-            ]]);
+            'title' => 'Connexion'],
+            'message' => $flashMessage['message'] ?? null,
+            'color' => $flashMessage['color'] ?? 'primary',
+            ]);
         
     }
 

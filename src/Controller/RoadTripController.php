@@ -82,12 +82,14 @@ class RoadTripController extends AbstractController
             $flash->setMessageFlash('success', 'Votre roadtrip a bien été ajouté');
             // return $this->redirectToRoute('roadtrips');
         }
+        $flashMessage = $flash->getMessageFlash();
         return $this->renderView(
             'roadTrip/add.php',
             [
                 'seo' => [
                     'title' => 'Ajouter un road trip',
-                ], 'message' => $flash->getMessageFlash(),
+                ], 'message' => $flashMessage['message'] ?? null,
+                'color' => $flashMessage['color'] ?? 'primary',
                 'carTypes' => $carTypes
             ]
         );
@@ -144,14 +146,15 @@ class RoadTripController extends AbstractController
             // return $this->redirectToRoute('roadtrips');
         }
         $checkpoints = $roadTripManager->getCheckpoints($roadTrip);
-
+        $flashMessage = $flash->getMessageFlash();
         return $this->renderView(
             'roadTrip/edit.php',
             [
                 'seo' => [
                     'title' => 'Modifier un road trip',
                 ],
-                'message' => $flash->getMessageFlash(),
+                'message' => $flashMessage['message'] ?? null,
+                'color' => $flashMessage['color'] ?? 'primary',
                 'roadtrip' => $roadTrip,
                 'carTypes' => $carTypes,
                 'checkpoints' => $checkpoints,

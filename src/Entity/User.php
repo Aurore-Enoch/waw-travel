@@ -2,14 +2,12 @@
 
 namespace App\Entity;
 
-use DateTime;
-
 class User {
 
     private ?int $id;
     private ?string $email;
     private ?string $password;
-    private ?DateTime $createdAt;
+    private ?string $created_at;
 
     public function getId(): ?int {
         return $this->id;
@@ -29,11 +27,11 @@ class User {
         $this->password = $password;
     }
 
-    public function getCreatedAt(): ?DateTime {
-        return $this->createdAt;
+    public function getCreatedAt(): ?string {
+        return $this->created_at;
     }
-    public function setCreatedAt(?DateTime $createdAt): void {
-        $this->createdAt = $createdAt;
+    public function setCreatedAt(?string $created_at): void {
+        $this->created_at = $created_at;
     }
     
 

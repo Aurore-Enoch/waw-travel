@@ -13,7 +13,15 @@ class Flash {
 
     public function getMessageFlash() {
         if(isset($_SESSION['flash'])) {
-            $flash = $_SESSION['flash']['message'];
+            if($_SESSION['flash']['type'] == 'success') {
+                $color = 'success';
+            } else {
+                $color = 'error';
+            }
+            $flash = [
+                'message' => $_SESSION['flash']['message'],
+                'color' => $color
+            ];
             unset($_SESSION['flash']);
             return $flash;
         }

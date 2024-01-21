@@ -34,6 +34,7 @@ class Security {
             return $value; 
         } elseif (is_object($value)) {
             $vars = get_object_vars($value);
+            // change get object 
             foreach ($vars as $var => $varVal) {
                 if (!is_int($varVal)) {
                     $value->$var = $this->escape($varVal, $escape);

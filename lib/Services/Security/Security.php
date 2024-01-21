@@ -16,7 +16,7 @@ class Security {
                     $reflectedClass = new \ReflectionClass($val);
                     $properties = $reflectedClass->getProperties();
                     foreach ($properties as $property) {
-                        if(!is_int($property->getValue($val))){
+                        if(is_string($property->getValue($val))){
                             $property->setAccessible(true);
                             $key = $property->getName();
                             if($escape) {
@@ -33,13 +33,24 @@ class Security {
             }
             return $value; 
         } elseif (is_object($value)) {
-            $vars = get_object_vars($value);
-            // change get object 
-            foreach ($vars as $var => $varVal) {
-                if (!is_int($varVal)) {
-                    $value->$var = $this->escape($varVal, $escape);
+            $reflectionClass = new \ReflectionClass($value);
+            $properties = $reflectionClass->getProperties();
+
+            foreach ($properties as $property) {
+        $property->setAccessible(true);
+        $propertyValue = $property->getValue($value);
+
+        if (is_string($propertyValue)) {
+            $property->setValue($value, htmlspecialchars($propertyValue));
+        } elseif (is_array($propertyValue)) {
+            foreach ($propertyValue as $key => $val) {
+                if (is_string($val)) {
+                    $propertyValue[$key] = htmlspecialchars($val);
                 }
             }
+            $property->setValue($value, $propertyValue);
+        }
+    }
             return $value;
         } else {
             return $value;

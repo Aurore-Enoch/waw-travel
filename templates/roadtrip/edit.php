@@ -8,7 +8,7 @@
         <label for="carType">Type de voiture</label>
         <select name="carTypeId" id="carType">
             <?php foreach ($data['carTypes'] as $carType) : ?>
-                <option value="<?= $carType->getId() ?>" <?= $carType->getId() == $data['roadtrip']->carTypeId() ? 'selected' : '' ?>>
+                <option value="<?= $carType->getId() ?>" <?= $carType->getId() == $data['roadtrip']->getCarType()->getId() ? 'selected' : '' ?>>
                     <?= $carType->getName() ?>
                 </option>
             <?php endforeach ?>

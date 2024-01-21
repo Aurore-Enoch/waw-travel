@@ -7,12 +7,45 @@ use App\Entity\RoadTrip;
 
 class RoadTripManager extends AbstractManager {
     
-    public function findAll() {
-        return $this->readMany(RoadTrip::class);
+    public function findAll($userId = null) {
+        $roadTrips = $this->readMany(RoadTrip::class, $userId ? ['user_id' => $userId] : []);
+
+        $carTypeManager = new CarTypeManager();
+        $userManager = new UserManager();
+        $checkpointManager = new CheckpointManager();
+    
+        foreach ($roadTrips as $roadTrip) {
+            $carType = $carTypeManager->find($roadTrip->car_type_id);
+            $roadTrip->setCarType($carType);
+    
+            $user = $userManager->find($roadTrip->user_id);
+            $roadTrip->setUser($user);
+    
+            $checkpoints = $checkpointManager->findAllByRoadTripId(['road_trip_id' => $roadTrip->getId()]);
+            $roadTrip->setCheckpoints($checkpoints);
+        }
+    
+        return $roadTrips;
+        
     }
 
     public function find(int $id) {
-        return $this->readOne(RoadTrip::class, ['id' => $id]);
+        $roadTrip = $this->readOne(RoadTrip::class, ['id' => $id]);
+
+    $carTypeManager = new CarTypeManager();
+    $carType = $carTypeManager->find($roadTrip->car_type_id);
+    $roadTrip->setCarType($carType); 
+
+    $userManager = new UserManager();
+    $user = $userManager->find($roadTrip->user_id);
+    $roadTrip->setUser($user);
+
+    $checkpointManager = new CheckpointManager();
+    $checkpoints = $checkpointManager->findAllByRoadTripId(['road_trip_id' => $roadTrip->getId()]);
+    $roadTrip->setCheckpoints($checkpoints); 
+
+    return $roadTrip;
+
     }
 
     public function add(RoadTrip $roadTrip) {
@@ -20,12 +53,10 @@ class RoadTripManager extends AbstractManager {
             RoadTrip::class,
             [
                 'title' => $roadTrip->getTitle(),
-                'car_type_id' => $roadTrip->carTypeId(),
-                'user_id' => $roadTrip->getUserId(),
+                'user_id' => $roadTrip->getUser()->getId(),
+                'car_type_id' => $roadTrip->getCarType()->getId(),
             ]
         );
-        // $roadTripId = $roadTrip->getId();
-        // $checkpointManager = new CheckpointManager();
         
     }
 
@@ -34,27 +65,16 @@ class RoadTripManager extends AbstractManager {
             RoadTrip::class,
             [
                 'title' => $roadTrip->getTitle(),
-                'car_type_id' => $roadTrip->carTypeId(),
-                'user_id' => $roadTrip->getUserId(),
-                // get the others properties of the relations entities
+                'user_id' => $roadTrip->getUser()->getId(),
+                'car_type_id' => $roadTrip->getCarType()->getId(),
             ],
              $roadTrip->getId(),
         );
     }
+
     public function delete(RoadTrip $roadTrip) {
         $this->remove(RoadTrip::class, $roadTrip->getId());
     }
 
-    public function getCarTypeName(RoadTrip $roadTrip) {
-        $carTypeManager = new CarTypeManager();
-        $carType = $carTypeManager->find($roadTrip->carTypeId());
-        return $carType->getName();
-    }
-
-    public function getCheckpoints(RoadTrip $roadTrip) {
-        $checkpointManager = new CheckpointManager();
-        $checkpoints = $checkpointManager->findAllByRoadTripId(['road_trip_id' => $roadTrip->getId()]);
-        return $checkpoints;
-    }
 }
 

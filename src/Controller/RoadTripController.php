@@ -8,6 +8,7 @@ use App\Manager\RoadTripManager;
 use App\Entity\RoadTrip;
 use App\Manager\CarTypeManager;
 use App\Manager\CheckpointManager;
+use App\Manager\UserManager;
 use WawTravel\Services\Security\Security;
 use WawTravel\Services\Auth\Authentificator;
 use WawTravel\Services\Flash\Flash;
@@ -23,8 +24,11 @@ class RoadTripController extends AbstractController
         }
         $security = new Security();
         $roadTripManager = new RoadTripManager();
-        $escapedRoadTrips = $security->escape($roadTripManager->findAll(), true);
-        var_dump($escapedRoadTrips);
+        $userId = $_SESSION['user']['id'];
+
+        $escapedRoadTrips = $security->escape($roadTripManager->findAll($userId), true);
+        //var_dump($escapedRoadTrips);
+
     
         return $this->renderView('roadtrip/list.php', [
             'seo' => [
@@ -40,20 +44,19 @@ class RoadTripController extends AbstractController
         $security = new Security();
         $roadTripManager = new RoadTripManager();
         $roadTrip = $roadTripManager->find($id);
-        $carTypeName = $roadTripManager->getCarTypeName($roadTrip);
-        $checkpoints = $roadTripManager->getCheckpoints($roadTrip);
+        $carType = $roadTrip->getCarType();
+        var_dump($roadTrip);
+        $checkpoints = $roadTrip->getCheckpoints();
 
         $escapedTitle = $security->escape($roadTrip->getTitle(), true);
-        
-         $roadTrip->setTitle($escapedTitle);
-         var_dump('escaped title',$escapedTitle);
-         var_dump($checkpoints);
+        $roadTrip->setTitle($escapedTitle);
+
          return $this->renderView('roadtrip/show.php', [
             'seo' => [
                 'title' => $roadTrip->getTitle(),
             ],
             'roadtrip' => $roadTrip,
-            'carTypeName' => $carTypeName,
+            'carTypeName' => $carType->getName(),
             'checkpoints' => $checkpoints,
             'security' => $security
         ]);
@@ -72,10 +75,10 @@ class RoadTripController extends AbstractController
         if (!empty($_POST)) {
             $roadTrip = new RoadTrip();
             $roadTripManager = new RoadTripManager();
-
+            $userManager = new UserManager();
             $roadTrip->setTitle($_POST['titleRoadTrip']);
-            $roadTrip->setCarTypeId($_POST['carTypeId']);
-            $roadTrip->setUserId($_SESSION['user']['id']);
+            $roadTrip->setCarType($carTypeManager->find($_POST['carTypeId']));
+            $roadTrip->setUser($userManager->find($_SESSION['user']['id']));
 
             $roadTripManager->add($roadTrip);
             // message flash (success, votre road trip a bien été ajouté)
@@ -116,7 +119,8 @@ class RoadTripController extends AbstractController
         if (!empty($_POST)) {
             if(isset($_POST['titleRoadTrip']) && isset($_POST['carTypeId'])) {
                 $roadTrip->setTitle($_POST['titleRoadTrip']);
-                $roadTrip->setCarTypeId($_POST['carTypeId']);
+                $roadTrip->setCarType($carTypeManager->find($_POST['carTypeId']));
+
         
                 $roadTripManager->edit($roadTrip);
         
@@ -140,10 +144,14 @@ class RoadTripController extends AbstractController
                 } else {
                     $checkpointManager->add($checkpoint);
                 }
+
+                $roadTrip = $roadTripManager->find($id);
             }
             // return $this->redirectToRoute('roadtrips');
         }
-        $checkpoints = $roadTripManager->getCheckpoints($roadTrip);
+        $checkpoints = $roadTrip->getCheckpoints($roadTrip);
+        var_dump($checkpoints);
+        var_dump($roadTrip);
 
         return $this->renderView(
             'roadTrip/edit.php',
@@ -184,7 +192,7 @@ class RoadTripController extends AbstractController
     $checkpoint = $checkpointManager->find($id);
     $checkpointManager->delete($checkpoint);
 
-    return $this->redirectToRoute('roadtrips');
+    return $this->redirectToRoute('');
 }
 
 }

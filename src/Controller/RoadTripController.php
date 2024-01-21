@@ -27,9 +27,7 @@ class RoadTripController extends AbstractController
         $userId = $_SESSION['user']['id'];
 
         $escapedRoadTrips = $security->escape($roadTripManager->findAll($userId), true);
-        //var_dump($escapedRoadTrips);
 
-    
         return $this->renderView('roadtrip/list.php', [
             'seo' => [
                 'title' => 'Liste des road trips',
@@ -44,14 +42,13 @@ class RoadTripController extends AbstractController
         $security = new Security();
         $roadTripManager = new RoadTripManager();
         $roadTrip = $roadTripManager->find($id);
-        $carType = $roadTrip->getCarType();
-        var_dump($roadTrip);
-        $checkpoints = $roadTrip->getCheckpoints();
+        $carType = $security->escape($roadTrip->getCarType(), true);
+        $checkpoints =  $security->escape($roadTrip->getCheckpoints(), true);
 
         $escapedTitle = $security->escape($roadTrip->getTitle(), true);
         $roadTrip->setTitle($escapedTitle);
-
-         return $this->renderView('roadtrip/show.php', [
+        var_dump($roadTrip);
+        return $this->renderView('roadtrip/show.php', [
             'seo' => [
                 'title' => $roadTrip->getTitle(),
             ],
@@ -66,6 +63,7 @@ class RoadTripController extends AbstractController
     {
         $authentificator = new Authentificator();
         $flash = new Flash();
+        $security = new Security();
         $carTypeManager = new CarTypeManager();
         $carTypes = $carTypeManager->findAll();
 
@@ -73,17 +71,32 @@ class RoadTripController extends AbstractController
             return $this->redirectToRoute('login');
         }
         if (!empty($_POST)) {
-            $roadTrip = new RoadTrip();
-            $roadTripManager = new RoadTripManager();
-            $userManager = new UserManager();
-            $roadTrip->setTitle($_POST['titleRoadTrip']);
-            $roadTrip->setCarType($carTypeManager->find($_POST['carTypeId']));
-            $roadTrip->setUser($userManager->find($_SESSION['user']['id']));
+            if (isset($_POST['titleRoadTrip']) && isset($_POST['carTypeId']) && isset($_POST['titleCheckpoint']) && isset($_POST['coordinates']) && isset($_POST['arrival_date']) && isset($_POST['departure_date'])) {
+                $roadTrip = new RoadTrip();
+                $roadTripManager = new RoadTripManager();
+                $userManager = new UserManager();
+                $roadTrip->setTitle($_POST['titleRoadTrip']);
+                $roadTrip->setCarType($carTypeManager->find($_POST['carTypeId']));
+                $roadTrip->setUser($userManager->find($_SESSION['user']['id']));
+                $roadTripManager->add($roadTrip);
+                var_dump($roadTrip);
+                
+                // en cours, l'id du roadtrip n'est pas récupéré pour ajouter un checkpoint
+                $checkpoint = new Checkpoint();
+                $checkpointManager = new CheckpointManager();
 
-            $roadTripManager->add($roadTrip);
-            // message flash (success, votre road trip a bien été ajouté)
-            $flash->setMessageFlash('success', 'Votre roadtrip a bien été ajouté');
-            // return $this->redirectToRoute('roadtrips');
+                $checkpoint->setTitle($security->escape($_POST['titleCheckpoint'], true));
+                $checkpoint->setCoordinates($security->escape($_POST['coordinates'], true));
+                $checkpoint->setArrivalDate($security->escape($_POST['arrival_date'], true));
+                $checkpoint->setDepartureDate($security->escape($_POST['departure_date'], true));
+
+                $checkpoint->setRoadtripId($roadTrip->getId());
+
+
+                $checkpointManager->add($checkpoint);
+                
+                $flash->setMessageFlash('success', 'Votre roadtrip a bien été ajouté');
+            }
         }
         $flashMessage = $flash->getMessageFlash();
         return $this->renderView(
@@ -102,6 +115,7 @@ class RoadTripController extends AbstractController
     {
         $authentificator = new Authentificator();
         $flash = new Flash();
+        $security = new Security();
         $carTypeManager = new CarTypeManager();
         $carTypes = $carTypeManager->findAll();
         if (!$authentificator->isConnected()) {
@@ -112,35 +126,34 @@ class RoadTripController extends AbstractController
 
         $checkpointManager = new CheckpointManager();
         $checkpoint = null;
-        
+
         if (isset($_GET['checkpoint_id'])) {
             $checkpoint_id = $_GET['checkpoint_id'];
             $checkpoint = $checkpointManager->find($checkpoint_id);
         }
-        
-        if (!empty($_POST)) {
-            if(isset($_POST['titleRoadTrip']) && isset($_POST['carTypeId'])) {
-                $roadTrip->setTitle($_POST['titleRoadTrip']);
-                $roadTrip->setCarType($carTypeManager->find($_POST['carTypeId']));
 
-        
+        if (!empty($_POST)) {
+            if (isset($_POST['titleRoadTrip']) && isset($_POST['carTypeId'])) {
+                $roadTrip->setTitle($security->escape($_POST['titleRoadTrip'], true));
+                $roadTrip->setCarType($security->escape($carTypeManager->find($_POST['carTypeId'], true)));
+
                 $roadTripManager->edit($roadTrip);
-        
+
                 // message flash (success, votre road trip a bien été modifié)
                 $flash->setMessageFlash('success', 'Votre roadtrip a bien été modifié');
-            }  
-        
+            }
+
             if (isset($_POST['titleCheckpoint']) && isset($_POST['coordinates']) && isset($_POST['arrival_date']) && isset($_POST['departure_date'])) {
                 if ($checkpoint === null) {
                     $checkpoint = new Checkpoint();
                 }
-                $checkpoint->setTitle($_POST['titleCheckpoint']);
-                $checkpoint->setCoordinates($_POST['coordinates']);
-                $checkpoint->setArrivalDate($_POST['arrival_date']);
-                $checkpoint->setDepartureDate($_POST['departure_date']);
-        
+                $checkpoint->setTitle($security->escape($_POST['titleCheckpoint'], true));
+                $checkpoint->setCoordinates($security->escape($_POST['coordinates'], true));
+                $checkpoint->setArrivalDate($security->escape($_POST['arrival_date'], true));
+                $checkpoint->setDepartureDate($security->escape($_POST['departure_date'], true));
+
                 $checkpoint->setRoadtripId($roadTrip->getId());
-        
+
                 if (isset($_GET['checkpoint_id'])) {
                     $checkpointManager->edit($checkpoint);
                 } else {
@@ -149,9 +162,8 @@ class RoadTripController extends AbstractController
 
                 $roadTrip = $roadTripManager->find($id);
             }
-            // return $this->redirectToRoute('roadtrips');
         }
-        $checkpoints = $roadTrip->getCheckpoints($roadTrip);
+        $checkpoints = $security->escape($roadTrip->getCheckpoints($roadTrip), true);
         var_dump($checkpoints);
         var_dump($roadTrip);
         $flashMessage = $flash->getMessageFlash();
@@ -186,16 +198,15 @@ class RoadTripController extends AbstractController
     }
 
     public function deleteCheckpoint(int $id)
-{
-    $authentificator = new Authentificator();
-    if (!$authentificator->isConnected()) {
-        return $this->redirectToRoute('connexion');
+    {
+        $authentificator = new Authentificator();
+        if (!$authentificator->isConnected()) {
+            return $this->redirectToRoute('connexion');
+        }
+        $checkpointManager = new CheckpointManager();
+        $checkpoint = $checkpointManager->find($id);
+        $checkpointManager->delete($checkpoint);
+
+        return $this->redirectToRoute('roadtrips');
     }
-    $checkpointManager = new CheckpointManager();
-    $checkpoint = $checkpointManager->find($id);
-    $checkpointManager->delete($checkpoint);
-
-    return $this->redirectToRoute('');
-}
-
 }

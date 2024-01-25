@@ -3,7 +3,7 @@
             <div class="flex flex-col w-auto max-w-lg bg-[#E2D7C1] border border-black rounded-xl items-center justify-center px-6 py-8 mx-auto">
                 <div class="w-full">
                     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 class="text-xl font-bold text-center leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                        <h1 class="text-xl font-bold text-center leading-tight tracking-tight text-success md:text-2xl ">
                         <?= htmlspecialchars($data['seo']['title']) ?>
                         </h1>
                         <span class="text-<?= ($data['color']) ?> bg-white border-<?= ($data['color']) ?> rounded-md"> <?= ($data['message']) ?></span>

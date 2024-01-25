@@ -87,7 +87,7 @@ class AuthController extends AbstractController {
         $user = $userManager->find($_SESSION['user']['id']);
         $email = $_SESSION['user']['email'];
         if(!empty($_POST)) {
-            if (isset($newPassword) || isset($email)) { 
+            if (isset($_POST['newPassword']) && !empty($_POST['newPassword']) || isset($_POST['email']) && !empty($_POST['email'])) { 
                 $emailPost = $_POST['email'];
                 $passwordPost = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
                 $user->setEmail($emailPost); 
@@ -95,12 +95,18 @@ class AuthController extends AbstractController {
 
                 $email = $emailPost;
                 $_SESSION['user']['password'] = $passwordPost;
+                var_dump($user);
                 $userManager->edit($user);
                 $flash->setMessageFlash('success', 'Votre profil a bien été mis à jour');
             } else {
                 $flash->setMessageFlash('error', 'Votre profil n\'a pas été mis à jour');
             }
+        } else {
+            $flash->setMessageFlash('error', 'Les champs ne sont pas remplis');
         }
+
+        $flashMessage = $flash->getMessageFlash();
+        var_dump($flashMessage['message']);
         return $this->renderView('auth/profile.php', ['seo' => [
             'title' => 'Mon Profil'],
             'user' => $user,

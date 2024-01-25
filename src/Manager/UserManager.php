@@ -25,4 +25,14 @@ class UserManager extends AbstractManager {
             ]
         );
     }
+    public function edit(User $user): void {
+        $this->update(
+            User::class,
+            [
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword(),
+            ],
+            $user->getId()
+        );
+    }
 }

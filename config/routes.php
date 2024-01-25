@@ -48,6 +48,11 @@ const ROUTES = [
 		'method' => 'logout',
 		'name' => 'app_logout'
 	],
+	'/profil' => [
+		'controller' => App\Controller\AuthController::class,
+		'method' => 'profile',
+		'name' => 'app_profile'
+	],
 	'/{id}' => [
 		'controller' => App\Controller\RoadTripController::class,
 		'method' => 'show',

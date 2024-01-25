@@ -1,5 +1,5 @@
 
-<nav class="bg-[#E2D7C1] border-gray-200">
+<nav class="bg-[#E2D7C1] border border-b-black">
   <div class=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="?path=/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="../public/img/logo-waw-travel.png" class="h-10" alt="waw-travel" />
@@ -11,12 +11,13 @@
       </svg>
     </button>
     <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
+      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 items-center">
         <li>
           <a href="?path=/" class="block py-2 px-3 " aria-current="page">Accueil</a>
         </li>
         <?php if (isset($_SESSION['user'])) : ?>
                 <li><a href="?path=/roadtrips" class="block py-2 px-3 text-gray-900 rounded p-2">RoadTrips</a></li>
+                <li><a href="?path=/profil" class="block py-2 px-3 text-gray-900 rounded p-2">Profil</a></li>
                 <li><a href="?path=/deconnexion" class="">Déconnexion</a></li>
             <?php else : ?>
                 <li><a href="?path=/connexion" class="block py-2 px-3 text-gray-900 border border-gray-900 rounded-lg hover:bg-gray-100 p-2">Connexion</a></li>

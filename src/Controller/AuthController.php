@@ -80,5 +80,34 @@ class AuthController extends AbstractController {
         $authentificator->disconnect();
         return $this->redirectToRoute('');
     }
+
+    public function profile() {
+        $flash = new Flash();
+        $userManager = new UserManager();
+        $user = $userManager->find($_SESSION['user']['id']);
+        $email = $_SESSION['user']['email'];
+        if(!empty($_POST)) {
+            if (isset($newPassword) || isset($email)) { 
+                $emailPost = $_POST['email'];
+                $passwordPost = password_hash($_POST['newPassword'], PASSWORD_DEFAULT);
+                $user->setEmail($emailPost); 
+                $user->setPassword($passwordPost); 
+
+                $email = $emailPost;
+                $_SESSION['user']['password'] = $passwordPost;
+                $userManager->edit($user);
+                $flash->setMessageFlash('success', 'Votre profil a bien été mis à jour');
+            } else {
+                $flash->setMessageFlash('error', 'Votre profil n\'a pas été mis à jour');
+            }
+        }
+        return $this->renderView('auth/profile.php', ['seo' => [
+            'title' => 'Mon Profil'],
+            'user' => $user,
+            'email' => $email,
+            'message' => $flashMessage['message'] ?? null,
+            'color' => $flashMessage['color'] ?? 'primary',
+            ]);
+    }
         
 }

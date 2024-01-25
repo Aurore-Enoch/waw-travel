@@ -1,4 +1,4 @@
-<span class="text-<?= ($data['color']) ?> bg-white border-<?= ($data['color']) ?> rounded-md"> <?= ($data['message']) ?></span>
+<span class="text-[<?= ($data['color']) ?>] bg-white border-[<?= ($data['color']) ?>] rounded-md"> <?= ($data['message']) ?></span>
 <form action="" method="post">
     <div>
         <label for="titleRoadTrip">Titre du roadtrip</label>

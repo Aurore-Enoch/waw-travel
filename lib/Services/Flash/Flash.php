@@ -14,9 +14,9 @@ class Flash {
     public function getMessageFlash() {
         if(isset($_SESSION['flash'])) {
             if($_SESSION['flash']['type'] == 'success') {
-                $color = 'success';
+                $color = '#007C00';
             } else {
-                $color = 'error';
+                $color = '#d30000';
             }
             $flash = [
                 'message' => $_SESSION['flash']['message'],

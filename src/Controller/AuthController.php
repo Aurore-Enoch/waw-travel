@@ -95,7 +95,6 @@ class AuthController extends AbstractController {
 
                 $email = $emailPost;
                 $_SESSION['user']['password'] = $passwordPost;
-                var_dump($user);
                 $userManager->edit($user);
                 $flash->setMessageFlash('success', 'Votre profil a bien été mis à jour');
             } else {
@@ -106,7 +105,6 @@ class AuthController extends AbstractController {
         }
 
         $flashMessage = $flash->getMessageFlash();
-        var_dump($flashMessage['message']);
         return $this->renderView('auth/profile.php', ['seo' => [
             'title' => 'Mon Profil'],
             'user' => $user,

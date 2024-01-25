@@ -6,7 +6,7 @@
                         <h1 class="text-xl font-bold text-center leading-tight tracking-tight text-gray-900 md:text-2xl ">
                         <?= htmlspecialchars($data['seo']['title']) ?>
                         </h1>
-                        <span class="text-<?= ($data['color']) ?> bg-white border-<?= ($data['color']) ?> rounded-md"> <?= ($data['message']) ?></span>
+                        <span class="text-[<?= ($data['color']) ?>] bg-white border-[<?= ($data['color']) ?>] rounded-md"> <?= ($data['message']) ?></span>
                         <form class="space-y-4 md:space-y-6" action="#" method="POST">
                             <div>
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>

@@ -40,39 +40,39 @@
         <div>
             <h2> Checkpoint de départ</h2>
             <div>
-                <label for="titleCheckpoint">Titre du checkpoint</label>
-                <input type="text" name="titleCheckpoint" id="titleCheckpoint" placeholder="Titre du checkpoint">
+                <label for="titleDepartureCheckpoint">Titre du checkpoint</label>
+                <input type="text" name="titleDepartureCheckpoint" id="titleDepartureCheckpoint" placeholder="Titre du checkpoint">
             </div>
             <div>
-                <label for="coordinates">Coordonnées du checkpoint</label>
-                <input type="text" name="coordinates" id="coordinates" placeholder="Coordonnées du checkpoint">
+                <label for="departureCoordinates">Coordonnées du checkpoint</label>
+                <input type="text" name="departureCoordinates" id="departureCoordinates" placeholder="Coordonnées du checkpoint">
             </div>
             <div>
-                <label for="arrival_date">Date d'arrivée</label>
-                <input type="datetime-local" name="arrival_date" id="arrival_date" placeholder="Date d'arrivée">
+                <label for="departure_date_checkpoint_1">Date de départ</label>
+                <input type="datetime-local" name="departure_date_checkpoint_1" id="departure_date_checkpoint_1" placeholder="Date de départ">
             </div>
             <div>
-                <label for="departure_date">Date de départ</label>
-                <input type="datetime-local" name="departure_date" id="departure_date" placeholder="Date de départ">
+                <label for="arrival_date_checkpoint_1">Date d'arrivée</label>
+                <input type="datetime-local" name="arrival_date_checkpoint_1" id="arrival_date_checkpoint_1" placeholder="Date d'arrivée">
             </div>
         </div>
         <div>
             <h2> Checkpoint d'arrivée</h2>
             <div>
-                <label for="titleCheckpoint">Titre du checkpoint</label>
-                <input type="text" name="titleCheckpoint" id="titleCheckpoint" placeholder="Titre du checkpoint">
+                <label for="titleArrivalCheckpoint">Titre du checkpoint</label>
+                <input type="text" name="titleArrivalCheckpoint" id="titleArrivalCheckpoint" placeholder="Titre du checkpoint">
             </div>
             <div>
-                <label for="coordinates">Coordonnées du checkpoint</label>
-                <input type="text" name="coordinates" id="coordinates" placeholder="Coordonnées du checkpoint">
+                <label for="arrivalCoordinates">Coordonnées du checkpoint</label>
+                <input type="text" name="arrivalCoordinates" id="arrivalCoordinates" placeholder="Coordonnées du checkpoint">
             </div>
             <div>
-                <label for="arrival_date">Date d'arrivée</label>
-                <input type="datetime-local" name="arrival_date" id="arrival_date" placeholder="Date d'arrivée">
+                <label for="departure_date_checkpoint_2">Date de départ</label>
+                <input type="datetime-local" name="departure_date_checkpoint_2" id="departure_date_checkpoint_2" placeholder="Date de départ">
             </div>
             <div>
-                <label for="departure_date">Date de départ</label>
-                <input type="datetime-local" name="departure_date" id="departure_date" placeholder="Date de départ">
+                <label for="arrival_date_checkpoint_2">Date d'arrivée</label>
+                <input type="datetime-local" name="arrival_date_checkpoint_2" id="arrival_date_checkpoint_2" placeholder="Date d'arrivée">
             </div>
         </div>
         <button type="submit">Ajouter</button>

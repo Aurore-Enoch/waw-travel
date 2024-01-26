@@ -11,6 +11,16 @@ const ROUTES = [
 		'method' => 'list',
 		'name' => 'roadtrip_list'
 	],
+	'/roadtrips/ajouter' => [
+		'controller' => App\Controller\RoadTripController::class,
+		'method' => 'add',
+		'name' => 'roadtrip_add'
+	],
+	'/roadtrips/{id}' => [
+		'controller' => App\Controller\RoadTripController::class,
+		'method' => 'show',
+		'name' => 'roadtrip_show'
+	],
 	'/roadtrips/{id}/editer' => [
 		'controller' => App\Controller\RoadTripController::class,
 		'method' => 'edit',
@@ -20,12 +30,6 @@ const ROUTES = [
 		'controller' => App\Controller\RoadTripController::class,
 		'method' => 'deleteCheckpoint',
 		'name' => 'delete_checkpoint'
-	],
-
-	'/roadtrips/ajouter' => [
-		'controller' => App\Controller\RoadTripController::class,
-		'method' => 'add',
-		'name' => 'roadtrip_add'
 	],
 	'/roadtrips/{id}/supprimer' => [
 		'controller' => App\Controller\RoadTripController::class,
@@ -42,7 +46,6 @@ const ROUTES = [
 		'method' => 'register',
 		'name' => 'app_register'
 	],
-	// TODO: add a button to disconnect
 	'/deconnexion' => [
 		'controller' => App\Controller\AuthController::class,
 		'method' => 'logout',
@@ -52,10 +55,5 @@ const ROUTES = [
 		'controller' => App\Controller\AuthController::class,
 		'method' => 'profile',
 		'name' => 'app_profile'
-	],
-	'/{id}' => [
-		'controller' => App\Controller\RoadTripController::class,
-		'method' => 'show',
-		'name' => 'roadtrip_show'
 	],
 ];

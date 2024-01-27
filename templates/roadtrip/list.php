@@ -30,7 +30,7 @@
                             <p class="my-2"><i class="fa-solid fa-car"></i><span class="font-semibold"> Type of Vehicule : </span>Voiture</p>
                         </div>
                         <div class="grid grid-cols md:grid-cols-2">
-                            <p class="my-2"><i class="fa-solid fa-location-dot"></i><span class="font-semibold"> Checkpoint : </span> getCheckpoint1</p>
+                            <p class="my-2"><i class="fa-solid fa-location-dot"></i><span class="font-semibold"> Checkpoint de départ : </span> getCheckpoint1</p>
                             <p class="my-2"><i class="fa-solid fa-location-dot"></i><span class="font-semibold"> Checkpoint d'Arrive : </span> Checkpoint 3</p>
                         </div>
                     </a>

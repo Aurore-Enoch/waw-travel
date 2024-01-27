@@ -96,6 +96,7 @@ class RoadTripController extends AbstractController
                 $departureCheckpoint->setCoordinates($security->escape($_POST['departureCoordinates'], true));
                 $departureCheckpoint->setDepartureDate($security->escape($_POST['departure_date_checkpoint_1'], true));
                 $departureCheckpoint->setArrivalDate($security->escape($_POST['arrival_date_checkpoint_1'], true));
+                $departureCheckpoint->setOrderNumber(1);
                 $departureCheckpoint->setRoadtripId($roadTripId);
                 $checkpointManager->add($departureCheckpoint);
 
@@ -107,14 +108,18 @@ class RoadTripController extends AbstractController
                 $arrivalCheckpoint->setCoordinates($security->escape($_POST['arrivalCoordinates'], true));
                 $arrivalCheckpoint->setDepartureDate($security->escape($_POST['departure_date_checkpoint_2'], true));
                 $arrivalCheckpoint->setArrivalDate($security->escape($_POST['arrival_date_checkpoint_2'], true));
+                $arrivalCheckpoint->setOrderNumber(2);
                 $arrivalCheckpoint->setRoadtripId($roadTripId);
+        
                 $checkpointManager->add($arrivalCheckpoint);
 
-                var_dump($arrivalCheckpoint);
-                $this->redirectToRoute('roadtrip_edit', ['id' => $roadTripId]);
+                // var_dump($arrivalCheckpoint);
+                
                 $flash->setMessageFlash('success', 'Votre roadtrip a bien été ajouté');
+                $this->redirectToRoute('/roadtrips/{id}/editer', ['id' => $roadTripId]);
             }
         }
+        //faire un timeout sur le message flash
         $flashMessage = $flash->getMessageFlash();
         return $this->renderView(
             'roadTrip/add.php',
@@ -160,7 +165,7 @@ class RoadTripController extends AbstractController
                 $flash->setMessageFlash('success', 'Votre roadtrip a bien été modifié');
             }
 
-            if (isset($_POST['titleCheckpoint']) && isset($_POST['coordinates']) && isset($_POST['arrival_date']) && isset($_POST['departure_date'])) {
+            if (isset($_POST['titleCheckpoint']) && isset($_POST['coordinates']) && isset($_POST['arrival_date']) && isset($_POST['departure_date']) && isset($_POST['orderCourse'])) {
                 if ($checkpoint === null) {
                     $checkpoint = new Checkpoint();
                 }
@@ -168,6 +173,7 @@ class RoadTripController extends AbstractController
                 $checkpoint->setCoordinates($security->escape($_POST['coordinates'], true));
                 $checkpoint->setArrivalDate($security->escape($_POST['arrival_date'], true));
                 $checkpoint->setDepartureDate($security->escape($_POST['departure_date'], true));
+                $checkpoint->setOrderNumber($security->escape($_POST['orderNumber'], true));
 
                 $checkpoint->setRoadtripId($roadTrip->getId());
 

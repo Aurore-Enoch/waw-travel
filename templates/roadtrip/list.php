@@ -13,7 +13,7 @@
     </div>
     <div class="m-0 md:m-16 lg:m-28 space-y-8">
         <div class="flex justify-end">
-            <a href="?path=/roadtrips/ajouter">
+            <a href="?page=/roadtrips/ajouter">
                 <button class="mt-6 rounded border-2 border-black bg-white px-7 pb-[8px] pt-[10px] text-sm font-medium uppercase leading-normal text-black transition duration-150 ease-in-out  hover:bg-yellow-700 hover:text-white " data-te-ripple-init data-te-ripple-color="light">
                     nouveau
                 </button>
@@ -22,7 +22,7 @@
         <?php foreach ($data['roadtrips'] as $roadtrip) : ?>
             <div class="flex w-full">
                 <div class="flex flex-col p-8 bg-[#E2D7C1] rounded-lg w-full justify-between items-center lg:items-stretch">
-                    <a href="?path=/<?= $roadtrip->getId() ?>">
+                    <a href="?page=/roadtrips/<?= $roadtrip->getId() ?>">
                         <div class="grid grid-cols md:grid-cols-2">
                             <p class="my-2"><i class="fa-solid fa-road"></i>
                                 <span class="font-semibold"> Titre : </span> <?= $roadtrip->getTitle() ?>

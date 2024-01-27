@@ -13,7 +13,7 @@ class Router {
     public function __construct() {
 		$this->routes = ROUTES;
 		$this->availablePaths = array_keys($this->routes);
-		$this->requestedPath = isset($_GET['path']) ? $_GET['path'] : '/';
+		$this->requestedPath = isset($_GET['page']) ? $_GET['page'] : '/';
 		$this->parseRoutes();
 	}
     private function explodePath(string $path): array {

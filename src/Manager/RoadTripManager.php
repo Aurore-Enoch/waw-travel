@@ -81,19 +81,8 @@ class RoadTripManager extends AbstractManager
     }
 
     public function findBy(array $filters = [], array $order = [], int $limit = null, int $offset = null)
-{
-    $roadTrip = $this->readOne(RoadTrip::class, $filters, $order, $limit, $offset);
-    
-    $reflectionClass = new \ReflectionClass($roadTrip);
-    
-    // Get the 'id' property
-    $idProperty = $reflectionClass->getProperty('id');
-    
-    // Make the 'id' property accessible
-    $idProperty->setAccessible(true);
-    
-    // Get the value of the 'id' property
-    $roadTripId = $idProperty->getValue($roadTrip);
-    return $roadTripId;
-}
+    {
+        $roadTrip = $this->readMany(RoadTrip::class, $filters, $order, $limit, $offset);
+        return $roadTrip[0]->getId();
+    }
 }

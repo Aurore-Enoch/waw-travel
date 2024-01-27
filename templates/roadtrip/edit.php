@@ -1,4 +1,4 @@
-<span class="text-[<?= ($data['color']) ?>] bg-white border-[<?= ($data['color']) ?>] rounded-md"> <?= ($data['message']) ?></span><form action="" method="post">
+<span class="flash-message text-[<?= ($data['color']) ?>] bg-white border-[<?= ($data['color']) ?>] rounded-md"> <?= ($data['message']) ?></span><form action="" method="post">
     <div>
         <label for="titleRoadTrip">Titre du roadtrip</label>
         <input type="text" name="titleRoadTrip" id="titleRoadTrip" value="<?= $data['roadtrip']->getTitle() ?>">
@@ -32,6 +32,10 @@
         <label for="departure_date">Date de départ</label>
         <input type="datetime-local" name="departure_date" id="departure_date" placeholder="Date de départ" value="<?= $data['checkpoint'] ? $data['checkpoint']->getDepartureDate() : '' ?>">
     </div>
+    <div>
+        <label for="orderNumber">Ordre du checkpoint</label>
+        <input type="number" name="orderNumber" id="orderNumber" placeholder="Ordre du checkpoint" value="<?= $data['checkpoint'] ? $data['checkpoint']->getOrderNumber() : '' ?>" min="1">
+    </div>
     <button type="submit">Ajouter</button>
 </form>
 <section>
@@ -42,8 +46,9 @@
             <p><?= $checkpoint->getCoordinates() ?></p>
             <p><?= $checkpoint->getArrivalDate() ?></p>
             <p><?= $checkpoint->getDepartureDate() ?></p>
-            <button><a href="?path=/roadtrips/<?= $data['roadtrip']->getId()?>/editer&checkpoint_id=<?= $checkpoint->getId() ?>">Modifier</a></button>      
-            <button><a href="?path=/roadtrips/<?= $data['roadtrip']->getId()?>/delete_checkpoint/<?= $checkpoint->getId() ?>">Supprimer</a></button>
+            <p><?= $checkpoint->getOrderNumber() ?></p>
+            <button><a href="?page=/roadtrips/<?= $data['roadtrip']->getId()?>/editer&checkpoint_id=<?= $checkpoint->getId() ?>">Modifier</a></button>      
+            <button><a href="?page=/roadtrips/<?= $data['roadtrip']->getId()?>/delete_checkpoint/<?= $checkpoint->getId() ?>">Supprimer</a></button>
             <?php endforeach ?>
     <?php endif ?>
 </section>

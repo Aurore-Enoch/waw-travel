@@ -8,11 +8,17 @@ class Flash {
         $_SESSION['flash'] = [
             'type' => $type,
             'message' => $message,
+            'timestamp' => time() // Ajoute un timestamp à la session
         ];
     }
 
     public function getMessageFlash() {
         if(isset($_SESSION['flash'])) {
+            if(time() - $_SESSION['flash']['timestamp'] > 5) { // 5 secondes de délais
+                unset($_SESSION['flash']);
+                return;
+            }
+    
             if($_SESSION['flash']['type'] == 'success') {
                 $color = '#007C00';
             } else {

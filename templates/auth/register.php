@@ -7,7 +7,7 @@
                         <?= ($data['seo']['title']) ?>
                     </h1>
                     <p class="text-sm font-light text-gray-500 text-center ">
-                        Vous avez déjà un compte ? <a href="?path=/connexion" class="font-medium  hover:underline ">connexion</a>
+                        Vous avez déjà un compte ? <a href="?page=/connexion" class="font-medium  hover:underline ">connexion</a>
                     </p>
                     <span class="text-[<?= ($data['color']) ?>] bg-white border-[<?= ($data['color']) ?>] rounded-md"> <?= ($data['message']) ?></span>
                     <form class="space-y-4 md:space-y-6" action="#" method="POST">

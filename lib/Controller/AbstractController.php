@@ -9,17 +9,29 @@ abstract class AbstractController {
 		return require_once dirname(__DIR__, 2) . '/templates/layout.php';
 	}
     
-    protected function redirectToRoute(string $name, array $params = []): void {
-		$uri = $_SERVER['SCRIPT_NAME'] . "?path=" . $name;
+    // protected function redirectToRoute(string $name, array $params = []): void {
+	// 	$uri = $_SERVER['SCRIPT_NAME'] . "?page=" . $name;
 
+	// 	if (!empty($params)) {
+	// 		$strParams = [];
+	// 		foreach ($params as $key => $val) {
+	// 			array_push($strParams, urlencode((string) $key) . '=' . urlencode((string) $val));
+	// 		}
+	// 		$uri .= '&' . implode('&', $strParams);
+	// 	}
+	// 	header("Location: " . $uri);
+	// 	die;
+	// }
+
+	protected function redirectToRoute(string $name, array $params = []): void {
+		$uri = $_SERVER['SCRIPT_NAME'] . "?page=" . $name;
+	
 		if (!empty($params)) {
-			$strParams = [];
 			foreach ($params as $key => $val) {
-				array_push($strParams, urlencode((string) $key) . '=' . urlencode((string) $val));
+				$uri = str_replace("{" . $key . "}", urlencode((string) $val), $uri);
 			}
-			$uri .= '&' . implode('&', $strParams);
 		}
-
+	
 		header("Location: " . $uri);
 		die;
 	}

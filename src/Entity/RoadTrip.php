@@ -46,11 +46,15 @@ class RoadTrip {
     }
 
     public function getCheckpoints(): array {
+        // ordonner les checkpoints par order_course croissant
+        usort($this->checkpoints, function($a, $b) {
+            return $a->getOrderNumber() <=> $b->getOrderNumber();
+        });
         return $this->checkpoints;
     }
 
     public function setCheckpoints(array $checkpoints): self {
         $this->checkpoints = $checkpoints;
         return $this;
-    }
-}
+    }                                                                                                                                                                                                                                                                                                                       
+}                                                                                                                                                                                                                                                                                                                           

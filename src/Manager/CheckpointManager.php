@@ -9,7 +9,7 @@ use App\Entity\RoadTrip;
 class CheckpointManager extends AbstractManager {
     
     public function findAll() {
-        return $this->readMany(Checkpoint::class);
+        return $this->readMany(Checkpoint::class, [], ['order_number' => 'ASC']);
     }
 
     public function find(int $id) {
@@ -25,6 +25,7 @@ class CheckpointManager extends AbstractManager {
                 'arrival_date' => $checkpoint->getArrivalDate(),
                 'departure_date' => $checkpoint->getDepartureDate(),
                 'road_trip_id' => $checkpoint->getRoadTripId(),
+                'order_number' => $checkpoint->getOrderNumber(),
             ]
         );
     }
@@ -38,6 +39,7 @@ class CheckpointManager extends AbstractManager {
                 'arrival_date' => $checkpoint->getArrivalDate(),
                 'departure_date' => $checkpoint->getDepartureDate(),
                 'road_trip_id' => $checkpoint->getRoadTripId(),
+                'order_number' => $checkpoint->getOrderNumber(),
             ],
              $checkpoint->getId(),
         );

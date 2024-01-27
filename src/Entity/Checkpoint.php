@@ -10,8 +10,8 @@ class Checkpoint {
 	private ?string $coordinates;
 	private ?string $arrival_date;
 	private ?string $departure_date;
-	private $road_trip_id;
-    
+	private ?int $order_number;   
+	private ?int $road_trip_id; 
 
 	public function getId(): ?int {
 		return $this->id;
@@ -51,6 +51,14 @@ class Checkpoint {
 
 	public function setRoadTripId(?int $road_trip_id): void {
 		$this->road_trip_id = $road_trip_id;
+	}
+
+	public function getOrderNumber(): ?int {
+		return $this->order_number;
+	}
+
+	public function setOrderNumber(?int $order_number): void {
+		$this->order_number = $order_number;
 	}
 
 }

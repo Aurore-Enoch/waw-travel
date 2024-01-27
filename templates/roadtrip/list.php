@@ -14,14 +14,14 @@
     <div class="m-0 md:m-16 lg:m-28 space-y-8">
         <div class="flex justify-end">
             <a href="?path=/roadtrips/ajouter">
-                <button class="mt-6 rounded border-2 border-black bg-white px-7 pb-[8px] pt-[10px] text-sm font-medium uppercase leading-normal text-black transition duration-150 ease-in-out  hover:bg-yellow-700 hover:text-white " data-te-ripple-init data-te-ripple-color="light">
+                <button class="mt-6 rounded border-2 border-black bg-white px-7 pb-[8px] pt-[10px] text-sm font-medium uppercase leading-normal text-black transition duration-150 ease-in-out  hover:bg-yellow-700 hover:text-white" data-te-ripple-init data-te-ripple-color="light">
                     nouveau
                 </button>
             </a>
         </div>
         <?php foreach ($data['roadtrips'] as $roadtrip) : ?>
             <div class="flex w-full">
-                <div class="flex flex-col p-8 bg-[#E2D7C1] rounded-lg w-full justify-between items-center lg:items-stretch">
+                <div class="flex flex-col p-8 bg-[#E2D7C1] border border-black rounded-lg w-full justify-between items-center lg:items-stretch shadow-lg">
                     <a href="?path=/<?= $roadtrip->getId() ?>">
                         <div class="grid grid-cols md:grid-cols-2">
                             <p class="my-2"><i class="fa-solid fa-road"></i>
@@ -30,7 +30,7 @@
                             <p class="my-2"><i class="fa-solid fa-car"></i><span class="font-semibold"> Type of Vehicule : </span>Voiture</p>
                         </div>
                         <div class="grid grid-cols md:grid-cols-2">
-                            <p class="my-2"><i class="fa-solid fa-location-dot"></i><span class="font-semibold"> Checkpoint : </span> getCheckpoint1</p>
+                            <p class="my-2"><i class="fa-solid fa-location-dot"></i><span class="font-semibold"> Checkpoint de départ : </span> getCheckpoint1</p>
                             <p class="my-2"><i class="fa-solid fa-location-dot"></i><span class="font-semibold"> Checkpoint d'Arrive : </span> Checkpoint 3</p>
                         </div>
                     </a>

@@ -1,4 +1,3 @@
-
 <nav class="bg-[#E2D7C1] border border-b-black">
   <div class=" max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="?path=/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -17,10 +16,10 @@
         </li>
         <?php if (isset($_SESSION['user'])) : ?>
                 <li><a href="?path=/roadtrips" class="block py-2 px-3 text-gray-900 rounded p-2">RoadTrips</a></li>
-                <li><a href="?path=/profil" class="block py-2 px-3 text-gray-900 rounded p-2">Profil</a></li>
-                <li><a href="?path=/deconnexion" class="">Déconnexion</a></li>
+                <li><a href="?path=/profil" class="block py-2 px-3 text-gray-900 rounded p-2 ">Profil</a></li>
+                <li><a href="?path=/deconnexion" class="block py-2 px-3 text-gray-900 bg-white border border-gray-900 rounded-lg hover:bg-yellow-700 hover:text-white p-2">Déconnexion</a></li>
             <?php else : ?>
-                <li><a href="?path=/connexion" class="block py-2 px-3 text-gray-900 border border-gray-900 rounded-lg hover:bg-gray-100 p-2">Connexion</a></li>
+                <li><a href="?path=/connexion" class="block py-2 px-3 text-gray-900 bg-white border border-gray-900 rounded-lg hover:bg-yellow-700 hover:text-white p-2">Connexion</a></li>
         <?php endif ?>
       </ul>
     </div>

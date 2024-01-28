@@ -13,7 +13,7 @@ class Flash {
     }
 
     public function getMessageFlash() {
-        if(isset($_SESSION['flash'])) {
+        if(isset($_SESSION['flash']) && !empty($_SESSION['flash'])) {
             if(time() - $_SESSION['flash']['timestamp'] > 5) { // 5 secondes de délais
                 unset($_SESSION['flash']);
                 return;

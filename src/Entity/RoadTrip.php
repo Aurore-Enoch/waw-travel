@@ -3,6 +3,7 @@ namespace App\Entity;
 
 use App\Entity\CarType;
 use App\Entity\User;
+use App\Entity\Checkpoint;
 use App\Manager\CarTypeManager;
 use App\Manager\CheckpointManager;
 
@@ -46,11 +47,24 @@ class RoadTrip {
     }
 
     public function getCheckpoints(): array {
-        // ordonner les checkpoints par order_course croissant
         usort($this->checkpoints, function($a, $b) {
             return $a->getOrderNumber() <=> $b->getOrderNumber();
         });
         return $this->checkpoints;
+    }
+    public function getFirstCheckpoint(): ?Checkpoint {
+        usort($this->checkpoints, function($a, $b) {
+            return $a->getOrderNumber() <=> $b->getOrderNumber();
+        });
+        
+        return (!empty($this->checkpoints)) ? $this->checkpoints[0] : null;
+
+    }
+    public function getLastCheckpoint(): ?Checkpoint {
+        usort($this->checkpoints, function($a, $b) {
+            return $a->getOrderNumber() <=> $b->getOrderNumber();
+        });
+        return (!empty($this->checkpoints)) ? $this->checkpoints[count($this->checkpoints) - 1] : null;
     }
 
     public function setCheckpoints(array $checkpoints): self {

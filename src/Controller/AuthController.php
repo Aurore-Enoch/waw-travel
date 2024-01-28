@@ -62,6 +62,7 @@ class AuthController extends AbstractController {
                     'email' => $user->getEmail(),
                     'password' => $user->getPassword(),
                 ]);
+                $flash->setMessageFlash('success', 'Vous êtes connecté');
                 return $this->redirectToRoute('roadtrips');
             }
             $flash->setMessageFlash('error', 'Email ou mot de passe incorrect');
@@ -98,10 +99,8 @@ class AuthController extends AbstractController {
                 $userManager->edit($user);
                 $flash->setMessageFlash('success', 'Votre profil a bien été mis à jour');
             } else {
-                $flash->setMessageFlash('error', 'Votre profil n\'a pas été mis à jour');
+                $flash->setMessageFlash('error', 'Erreur, votre profil n\'a pas été mis à jour');
             }
-        } else {
-            $flash->setMessageFlash('error', 'Les champs ne sont pas remplis');
         }
 
         $flashMessage = $flash->getMessageFlash();

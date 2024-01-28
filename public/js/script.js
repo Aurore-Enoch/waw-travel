@@ -15,3 +15,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
       flashMessageElement.style.display = 'none';
   }
 }, 5000);
+
+
+    let form = document.querySelector('#form-checkpoint');
+    form.addEventListener('submit', function(e) {
+        form.reset();
+    });

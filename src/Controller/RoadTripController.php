@@ -22,6 +22,9 @@ class RoadTripController extends AbstractController
         if (!$authentificator->isConnected()) {
             return $this->redirectToRoute('app_login');
         }
+            $flash = new Flash();
+            $flashMessage = $flash->getMessageFlash();
+
         $security = new Security();
         $roadTripManager = new RoadTripManager();
         $userId = $_SESSION['user']['id'];
@@ -33,7 +36,8 @@ class RoadTripController extends AbstractController
                 'title' => 'Liste des road trips',
             ],
             'roadtrips' => $escapedRoadTrips,
-            'security' => $security
+            'message' => $flashMessage['message'] ?? null,
+            'color' => $flashMessage['color'] ?? 'primary',
         ]);
     }
 
@@ -47,7 +51,6 @@ class RoadTripController extends AbstractController
 
         $escapedTitle = $security->escape($roadTrip->getTitle(), true);
         $roadTrip->setTitle($escapedTitle);
-        var_dump($roadTrip);
         return $this->renderView('roadtrip/show.php', [
             'seo' => [
                 'title' => $roadTrip->getTitle(),
@@ -83,7 +86,6 @@ class RoadTripController extends AbstractController
                 $roadTrip->setCarType($carTypeManager->find($_POST['carTypeId']));
                 $roadTrip->setUser($userManager->find($_SESSION['user']['id']));
                 $roadTripManager->add($roadTrip);
-                var_dump($roadTrip);
 
                 // récupérer l'id du roadtrip
                 $roadTripId = $roadTripManager->findBy(['user_id' => $_SESSION['user']['id']], ['id' => 'DESC'], 1);
@@ -100,7 +102,6 @@ class RoadTripController extends AbstractController
                 $departureCheckpoint->setRoadtripId($roadTripId);
                 $checkpointManager->add($departureCheckpoint);
 
-                var_dump($departureCheckpoint);
 
                 // Créer arrival checkpoint
                 $arrivalCheckpoint = new Checkpoint();
@@ -112,14 +113,13 @@ class RoadTripController extends AbstractController
                 $arrivalCheckpoint->setRoadtripId($roadTripId);
         
                 $checkpointManager->add($arrivalCheckpoint);
-
-                // var_dump($arrivalCheckpoint);
                 
                 $flash->setMessageFlash('success', 'Votre roadtrip a bien été ajouté');
                 $this->redirectToRoute('/roadtrips/{id}/editer', ['id' => $roadTripId]);
+            } else {
+                $flash->setMessageFlash('error', 'Erreur, votre roadtrip n\'a pas été ajouté');
             }
         }
-        //faire un timeout sur le message flash
         $flashMessage = $flash->getMessageFlash();
         return $this->renderView(
             'roadTrip/add.php',
@@ -165,7 +165,7 @@ class RoadTripController extends AbstractController
                 $flash->setMessageFlash('success', 'Votre roadtrip a bien été modifié');
             }
 
-            if (isset($_POST['titleCheckpoint']) && isset($_POST['coordinates']) && isset($_POST['arrival_date']) && isset($_POST['departure_date']) && isset($_POST['orderCourse'])) {
+            if (isset($_POST['titleCheckpoint']) && isset($_POST['coordinates']) && isset($_POST['arrival_date']) && isset($_POST['departure_date']) && isset($_POST['orderNumber'])) {
                 if ($checkpoint === null) {
                     $checkpoint = new Checkpoint();
                 }
@@ -179,16 +179,18 @@ class RoadTripController extends AbstractController
 
                 if (isset($_GET['checkpoint_id'])) {
                     $checkpointManager->edit($checkpoint);
+                    $flash->setMessageFlash('success', 'Votre checkpoint a bien été modifié');
                 } else {
                     $checkpointManager->add($checkpoint);
+                    $flash->setMessageFlash('success', 'Votre checkpoint a bien été ajouté');
                 }
 
                 $roadTrip = $roadTripManager->find($id);
+            } else {
+                $flash->setMessageFlash('error', 'Erreur, votre checkpoint n\'a pas été ajouté');
             }
         }
         $checkpoints = $security->escape($roadTrip->getCheckpoints($roadTrip), true);
-        var_dump($checkpoints);
-        var_dump($roadTrip);
         $flashMessage = $flash->getMessageFlash();
         return $this->renderView(
             'roadTrip/edit.php',
@@ -229,7 +231,7 @@ class RoadTripController extends AbstractController
         $checkpointManager = new CheckpointManager();
         $checkpoint = $checkpointManager->find($id);
         $checkpointManager->delete($checkpoint);
-
-        return $this->redirectToRoute('roadtrips');
+        $flash = new Flash();
+        $flash->setMessageFlash('success', 'Votre checkpoint a bien été supprimé');
     }
 }

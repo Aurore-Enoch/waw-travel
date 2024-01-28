@@ -9,7 +9,9 @@
                     <p class="text-sm font-light text-gray-500 text-center ">
                         Vous avez déjà un compte ? <a href="?page=/connexion" class="font-medium  hover:underline ">connexion</a>
                     </p>
-                    <span class="text-[<?= ($data['color']) ?>] bg-white border-[<?= ($data['color']) ?>] rounded-md"> <?= ($data['message']) ?></span>
+                    <?php if ($data['message']) : ?>
+                        <span class="flash-message text-[<?= ($data['color']) ?>] bg-white border border-[<?= ($data['color']) ?>] rounded-md p-1 font-semibold"> <?= ($data['message']) ?></span>
+                    <?php endif ?>
                     <form class="space-y-4 md:space-y-6" action="#" method="POST">
                         <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 "></label>
@@ -30,7 +32,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="w-full  text-black bg-white border border-black hover:bg-yellow-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Inscription</button>
+                        <button type="submit" class="w-full  text-black bg-white border border-black hover:bg-[#58463E] hover:text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Inscription</button>
                     </form>
                 </div>
             </div>

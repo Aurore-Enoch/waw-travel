@@ -1,6 +1,6 @@
-<div class="flex flex-row m-10 space-x-4 items-center">
-    <div class="w-1/2">
-        <div class="flex flex-col w-auto max-w-lg border border-black bg-[#E2D7C1] rounded-xl items-center justify-center px-6 py-8 mx-auto">
+<div class="flex flex-col md:flex-row m-10 space-x-0 space-y-6 md:space-x-4 md:space-y-0 items-center">
+    <div class="w-full md:w-1/2">
+        <div class="flex flex-col w-auto max-w-lg bg-[#E2D7C1] rounded-xl items-center justify-center px-6 py-8 mx-auto">
             <div class="w-full ">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl font-bold text-center leading-tight tracking-tight text-gray-900 md:text-2xl ">
@@ -39,7 +39,7 @@
         </div>
 
     </div>
-    <div class="w-1/2 max-w-lg rounded-xl object-cover">
+    <div class="w-full md:w-1/2 max-w-lg rounded-xl object-cover">
         <img src="img/register.jpg" class="rounded-xl" alt="Your Image" />
     </div>
 </div>

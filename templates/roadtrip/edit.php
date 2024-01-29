@@ -4,7 +4,7 @@
             <div class="flex h-full items-center justify-center">
                 <div class="text-white">
                     <div class="mb-20 text-4xl font-semibold ">Modifier le Roadtrip</div>
-                    <a href='#' class="rounded border border-1 border-neutral-50 px-7 pb-[8px] pt-[10px] text-sm font-medium uppercase leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10" data-te-ripple-init data-te-ripple-color="light">
+                    <a href='?page=/roadtrips' class="rounded border border-1 border-neutral-50 px-7 pb-[8px] pt-[10px] text-sm font-medium uppercase leading-normal text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10" data-te-ripple-init data-te-ripple-color="light">
                         Voir tout
                     </a>
                 </div>
@@ -71,16 +71,16 @@
         <div>
             <p class="font-bold text-2xl mt-20">Mes Checkpoints <i class="fa-solid fa-location-dot"></i></p>
         </div>
-        <div class="flex w-full">
+        <div class="flex w-full text-[10px] sm:text-base">
             <div class="flex flex-col gap-4 md:p-8 py-8 px-4 bg-[#E2D7C1] border border-black rounded-lg w-full justify-between lg:items-stretch shadow-lg">
-                <div class="md:grid grid-cols md:grid-cols-3 m-2 hidden">
+                <div class="grid grid-cols-3 m-2 ">
                     <p class="my-2 font-semibold">Chekpoints</p>
                     <p class="my-2">Coordonnées</p>
                 </div>
 
                 <?php if (isset($data['checkpoints'])) : ?>
                     <?php foreach ($data['checkpoints'] as $checkpoint) : ?>
-                        <div class="grid grid-cols md:grid-cols-3 m-2 w-full ">
+                        <div class="grid grid-cols-3 m-2 w-full ">
                             <p class="my-2 font-semibold"><?= $checkpoint->getTitle() ?></p>
                             <p class="my-2"><?= $checkpoint->getCoordinates() ?></p>
                             <!-- <p><?= $checkpoint->getArrivalDate() ?></p>
@@ -90,7 +90,7 @@
                                 <button><a href="?page=/roadtrips/<?= $data['roadtrip']->getId() ?>/delete_checkpoint/<?= $checkpoint->getId() ?>"> <i class="fa-solid fa-trash text-2xl"></i></a></button>
                             </div>
                         </div>
-                        <hr class="h-[1px] bg-black rounded-md " />
+                        <hr class="h-0.5 bg-black rounded-md" />
                     <?php endforeach ?>
                 <?php endif ?>
             </div>

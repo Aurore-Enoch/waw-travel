@@ -30,10 +30,15 @@ Waw.travel est une plateforme web gratuite conçue pour les passionnés de road 
 - **Tailwind CSS :** Un framework CSS utilitaire. [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
 ## Fonctionnalités
-- Création de road trips avec plusieurs points de contrôle.
-- Page web publique détaillant l'ensemble du road trip.
-- Inscription d'utilisateurs et espace membre sécurisé.
-- Système de messagerie flash pour les retours d'information des utilisateurs.
+- **Authentification :** Les utilisateurs peuvent s'inscrire et se connecter de manière sécurisée.
+- **Gestion des Roadtrips :**
+  - Créer un road trip.
+  - Modifier les détails d'un road trip existant.
+  - Supprimer un road trip.
+  - Afficher une liste de tous les road trips.
+- **Sécurité :** Mise en place d'une protection contre les vulnérabilités XSS.
+- **Feedback Utilisateur :** Utilise un système de messagerie flash pour fournir des retours d'information aux utilisateurs.
+
 
 ## Membres de l'Équipe
 Le projet a été réalisé par les individus talentueux de l'équipe Master Tech Lead :
@@ -44,3 +49,5 @@ Le projet a été réalisé par les individus talentueux de l'équipe Master Tec
 - **[Liticia's GitHub](https://github.com/ltadjer)**
 
 N'hésitez pas à explorer le projet et, si vous avez des questions ou besoin d'assistance, veuillez contacter l'un des membres de l'équipe mentionnés ci-dessus.
+
+

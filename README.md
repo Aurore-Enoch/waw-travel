@@ -38,8 +38,9 @@ Waw.travel est une plateforme web gratuite conçue pour les passionnés de road 
 ## Membres de l'Équipe
 Le projet a été réalisé par les individus talentueux de l'équipe Master Tech Lead :
 
-- **Aurore**
-- **Achraf**
-- **Liticia**
+
+- **[Aurore's GitHub](https://github.com/Aurore-Enoch)**
+- **[Achraf's GitHub](https://github.com/achrafaitmbarek)**
+- **[Liticia's GitHub](https://github.com/ltadjer)**
 
 N'hésitez pas à explorer le projet et, si vous avez des questions ou besoin d'assistance, veuillez contacter l'un des membres de l'équipe mentionnés ci-dessus.

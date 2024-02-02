@@ -20,12 +20,11 @@
             <p class="font-bold text-2xl mb-4 mt-20">Road Trips <i class="fa-solid fa-plane-departure"></i></p>
             <div class="grid grid-cols md:grid-cols-2 gap-6 ">
                 <div>
-                    <label for="titleRoadTrip"></label>
                     <input class="w-full p-2 bg-[#E2D7C1] placeholder-[#58463E] border border-black rounded-lg" type="text" name="titleRoadTrip" id="titleRoadTrip" placeholder="Titre du roadtrip">
                 </div>
                 <div class="!ml-0 !mr-0">
                     <label for="carType"></label>
-                    <select class="w-full p-2 bg-[#E2D7C1] text-[#58463E] border border-black rounded-lg name=" carTypeId" id="carType">
+                    <select class="w-full p-2 bg-[#E2D7C1] text-[#58463E] border border-black rounded-lg" name="carTypeId" id="carType">
                         <?php foreach ($data['carTypes'] as $carType) : ?>
                             <option value="<?= $carType->getId() ?>"><?= $carType->getName() ?></option>
                         <?php endforeach ?>
